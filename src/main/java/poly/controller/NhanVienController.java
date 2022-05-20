@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ptithcm.Entity.Chuyen_Xe;
 import ptithcm.Entity.Loai_Xe;
 import ptithcm.Entity.Nhan_Vien;
+import ptithcm.Entity.Tuyen_Xe;
 import ptithcm.Entity.Ve_Xe;
 import ptithcm.Entity.Xe;
 
@@ -64,7 +65,46 @@ public class NhanVienController {
    @RequestMapping("chuyen_xe_hoan_thanh")
    public String chuyenxeht(ModelMap model) {
 	   model.addAttribute("listChuyenXeChuaHoanThanh",this.getchuyenxe());
+	   model.addAttribute("chuyenxe",new Chuyen_Xe());
 	   return "site/nhanvien/chuyen_xe_hoan_thanh";
+   }
+   @RequestMapping(value = "danhdauxe",method = RequestMethod.POST)
+   public String danhdauxe(ModelMap model,@ModelAttribute("chuyenxe") Chuyen_Xe chuyenxe) {
+	   
+	   chuyenxe.setMaXe(this.getchuyenxe1(chuyenxe.getMaChuyen()).getMaXe());
+	   chuyenxe.setMaTuyen(this.getchuyenxe1(chuyenxe.getMaChuyen()).getMaTuyen());
+	   chuyenxe.setGioChay(this.getchuyenxe1(chuyenxe.getMaChuyen()).getGioChay());
+	   chuyenxe.setDaHoanThanh(false);
+	   Integer check=this.updatechuyenxe(chuyenxe);
+	   if(check==1) {
+		   model.addAttribute("message","da hoan thanh");
+	   }else {
+		   model.addAttribute("message","hoan thanh that bai");
+	   }
+	   return "site/nhanvien/chuyen_xe_hoan_thanh";
+   }
+   public Integer updatechuyenxe(Chuyen_Xe chuyenxe) {
+	   Session session=factory.openSession();
+	   Transaction t=session.beginTransaction();
+	   try {
+		  session.update(chuyenxe);
+		  t.commit();
+	} catch (Exception e) {
+		// TODO: handle exception
+		t.rollback();
+		return 0;
+	}finally {
+		session.close();
+	}
+	   return 1;
+   }
+   public Chuyen_Xe getchuyenxe1(Integer machuyen) {
+	   Session session=factory.getCurrentSession();
+	   String hql="from Chuyen_Xe where maChuyen =:machuyen";
+	   Query query=session.createQuery(hql);
+	   query.setParameter("machuyen", machuyen);
+	   Chuyen_Xe list=(Chuyen_Xe) query.list().get(0);
+	   return list;
    }
    public List<Chuyen_Xe> getchuyenxe(){
 	   Session session=factory.getCurrentSession();
