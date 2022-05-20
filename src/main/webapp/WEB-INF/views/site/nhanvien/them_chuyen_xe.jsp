@@ -13,9 +13,13 @@
 		<form:form
 			action="site/themchuyenxe.htm" modelAttribute="chuyenxe"
 			method="POST">
-			<div class="mb-3">
+			  <div class="mb-3">
 				<label for="bienSoXeInput" class="form-label">Nhập Biển Số Xe:</label>
-				<form:input type="text" class="form-control" id="bienSoXeInput" path="maXe.bienSoXe"/>
+				<form:select path="maXe.idXe" items="${bienxesel}"
+						itemLabel="bienSoXe" itemValue="idXe"
+						class="form-select form-select-lg mb-6"
+						aria-label=".form-select-lg example">
+					</form:select>
 			</div>
 			
 			<div class="mb-3">
@@ -34,8 +38,9 @@
 						itemLabel="idTuyen" itemValue="idTuyen"
 						class="form-select form-select-lg mb-6"
 						aria-label=".form-select-lg example">
-					</form:select>
-				
+			</form:select>
+		
+	
 			</div>
 			
 			<div class="mb-3">
@@ -43,7 +48,7 @@
 				<form:input type="date" onkeydown="return false" class="form-control" id="ngayChayInput" path="gioChay"/>
 			</div>
 		
-			
+			<!--  
 			 <div class="my-4">
 				<div class="form-label">Giờ chạy:</div>
 
@@ -54,9 +59,11 @@
 						<input type="text" name="mm" id="" placeholder="Phút"
 						class="form-control" style="width: 100px;" value="" required> 
 						<div class="invalid-feedback">Xin vui lòng nhập giờ, phút hợp lệ.</div>
-				</div>
-			</div>
+				</div>-->
+			<div>
 			<input type="submit" class="btn btn-success btn-lg mt-3" value="Thêm" />
+			   </div>
+			<div style="color: green;">${message }</div>
 		</form:form>
 		</div>
 	

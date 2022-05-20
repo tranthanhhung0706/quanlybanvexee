@@ -86,14 +86,34 @@ public class NhanVienController {
    @RequestMapping("themchuyenxe")
    public String themchuyenxe(ModelMap model) {
 	   model.addAttribute("chuyenxe",new Chuyen_Xe());
-	   
+	   model.addAttribute("tuyenxesel1",this.gettuyenxe());
 	   return "site/nhanvien/them_chuyen_xe";
    }
-//   hung
    @RequestMapping(value = "themchuyenxe",method = RequestMethod.POST)
    public String themchuyenxe1(ModelMap model,@ModelAttribute("chuyenxe") Chuyen_Xe chuyenxe) {
 	   
+	   Integer check=this.savethemchuyenxe(chuyenxe);
+	   if(check==1) {
+		   model.addAttribute("message","them chuyen  xe thanh cong");
+	   }else {
+		   model.addAttribute("message","them chuyen xe that bai");
+	   }
 	   return "site/nhanvien/them_chuyen_xe";
+   }
+   public Integer savethemchuyenxe(Chuyen_Xe chuyenxe) {
+	   Session session=factory.openSession();
+	   Transaction t=session.beginTransaction();
+	   try {
+		session.save(chuyenxe);
+		t.commit();
+	} catch (Exception e) {
+		// TODO: handle exception
+		t.rollback();
+		return 0;
+	}finally {
+		session.close();
+	}
+	   return 1;
    }
    public Integer updatechuyenxe(Chuyen_Xe chuyenxe) {
 	   Session session=factory.openSession();
@@ -180,6 +200,14 @@ public class NhanVienController {
 	   String hql="from Loai_Xe";
 	   Query query=session.createQuery(hql);
 	   List<Loai_Xe> list=query.list();
+	   return list;
+   }
+   @ModelAttribute("bienxesel")
+   public List<Xe> getXe(){
+	   Session session=factory.getCurrentSession();
+	   String hql="from Xe";
+	   Query query=session.createQuery(hql);
+	   List<Xe> list=query.list();
 	   return list;
    }
    @ModelAttribute("tuyenxesel")
