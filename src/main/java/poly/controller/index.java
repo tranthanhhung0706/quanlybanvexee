@@ -26,7 +26,6 @@ public class index {
     public String index(ModelMap model,HttpSession session) {
 	 List<Dia_Diem> list=this.getdiadiem();
    	 session.setAttribute("tatCaDiaDiem", list);
-
     	return "index";
     }
 	  public List<Dia_Diem> getdiadiem(){

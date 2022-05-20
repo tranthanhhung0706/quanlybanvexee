@@ -86,8 +86,10 @@ public class NhanVienController {
    @RequestMapping("themchuyenxe")
    public String themchuyenxe(ModelMap model) {
 	   model.addAttribute("chuyenxe",new Chuyen_Xe());
+	   
 	   return "site/nhanvien/them_chuyen_xe";
    }
+//   hung
    @RequestMapping(value = "themchuyenxe",method = RequestMethod.POST)
    public String themchuyenxe1(ModelMap model,@ModelAttribute("chuyenxe") Chuyen_Xe chuyenxe) {
 	   
