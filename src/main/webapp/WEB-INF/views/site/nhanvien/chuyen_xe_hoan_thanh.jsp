@@ -27,7 +27,7 @@
   					<td><fmt:formatDate value="${myDate }" pattern="HH:mm"/></td>
   					<td>
   					<form:form action="site/danhdauxe.htm" method="POST" modelAttribute="chuyenxe">
-  						<form:input  path="maChuyen" value="${chuyenXe.maChuyen }"/> <!-- bỏ id chuyến xe vào đây -->
+  						<form:input  path="maChuyen" style="display:none;" value="${chuyenXe.maChuyen }"/> <!-- bỏ id chuyến xe vào đây -->
   						<button type="submit" class="btn btn-warning" >Da Hoan Thanh</button>
   					</form:form>
   					</td>
