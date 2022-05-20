@@ -70,17 +70,17 @@ public class NhanVienController {
    }
    @RequestMapping(value = "danhdauxe",method = RequestMethod.POST)
    public String danhdauxe(ModelMap model,@ModelAttribute("chuyenxe") Chuyen_Xe chuyenxe) {
-	   
 	   chuyenxe.setMaXe(this.getchuyenxe1(chuyenxe.getMaChuyen()).getMaXe());
 	   chuyenxe.setMaTuyen(this.getchuyenxe1(chuyenxe.getMaChuyen()).getMaTuyen());
 	   chuyenxe.setGioChay(this.getchuyenxe1(chuyenxe.getMaChuyen()).getGioChay());
-	   chuyenxe.setDaHoanThanh(false);
+	   chuyenxe.setDaHoanThanh(true);
 	   Integer check=this.updatechuyenxe(chuyenxe);
 	   if(check==1) {
 		   model.addAttribute("message","da hoan thanh");
 	   }else {
 		   model.addAttribute("message","hoan thanh that bai");
 	   }
+	   model.addAttribute("listChuyenXeChuaHoanThanh",this.getchuyenxe());
 	   return "site/nhanvien/chuyen_xe_hoan_thanh";
    }
    public Integer updatechuyenxe(Chuyen_Xe chuyenxe) {
