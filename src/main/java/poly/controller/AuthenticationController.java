@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,36 +34,70 @@ public class AuthenticationController {
 	SessionFactory factory;
 	static Account accounttemp;
 	static User usertemp;
-//	hung
     @RequestMapping("sign_in")
     public String sign_in() {
     	return "site/login";
     }
     @RequestMapping(value = "sign_in",method = RequestMethod.POST)
-    public String signin(ModelMap model,HttpSession session,HttpServletRequest request) {
-    	try {
-			accounttemp=this.gettk(request.getParameter("username"), request.getParameter("password"));
-			if(accounttemp !=null) {
-				session.setAttribute("tai_khoans",this.gettk(request.getParameter("username"), request.getParameter("password")) );
-				System.out.println(accounttemp.getIdRole().getAuthority());
-				if(accounttemp.getIdRole().getAuthority().equals("ROLE_EMPLOYEE")) {
-					System.out.println(1);
-					session.setAttribute("tk_nv", this.getnv(accounttemp.getAccountId()));
-					
-				}else {
-					System.out.println(0);
-					session.setAttribute("tk_kh", this.getuser(accounttemp.getAccountId()));
-					
-				}
-//				session.setAttribute("tks", this.getuser(accounttemp.getAccountId()));
-//				System.out.println(this.getuser(accounttemp.getAccountId()));
-			}
-			return "site/index";
-		} catch (Exception e) {
-			// TODO: handle exception
-			model.addAttribute("message","account do not exits");
-			return "site/login";
+    public String signin(ModelMap model,HttpSession session,HttpServletRequest request, @Validated @ModelAttribute("Account") Account account, BindingResult errors ) {
+    	
+    	if(account.getUsername().trim().length() == 0) {
+			errors.rejectValue("username", "Account", "Vui long nhap ho ten !");
 		}
+		if(account.getPassword()== null) {
+			errors.rejectValue("password", "Account", "Vui long nhap diem !");
+		}
+		
+		
+		String captcha = session.getAttribute("captcha_security").toString();
+		String verifyCaptcha = request.getParameter("captcha");
+
+		// boolean verify = RecaptchaVerification.verify(gRecaptchaResponse);
+		boolean verify = false;
+		if (captcha.equals(verifyCaptcha)) {
+			verify = true;
+		} else {
+			verify = false;
+		}
+
+		if (errors.hasErrors() || !verify) {
+
+
+			if (!verify) {
+				model.addAttribute("reCaptra", "Vui lòng nhâp reCaptra");
+				// System.out.println("có lổi Passwword");
+			}
+
+			return "site/login";
+		} else {
+			System.out.println("Không có lổi Đăng nhâp !");
+			try {
+				accounttemp=this.gettk(request.getParameter("username"), request.getParameter("password"));
+				if(accounttemp !=null) {
+					session.setAttribute("tai_khoans",this.gettk(request.getParameter("username"), request.getParameter("password")) );
+					System.out.println(accounttemp.getIdRole().getAuthority());
+					if(accounttemp.getIdRole().getAuthority().equals("ROLE_EMPLOYEE")) {
+						System.out.println(1);
+						session.setAttribute("tk_nv", this.getnv(accounttemp.getAccountId()));
+						
+					}else {
+						System.out.println(0);
+						session.setAttribute("tk_kh", this.getuser(accounttemp.getAccountId()));
+						
+					}
+//					session.setAttribute("tks", this.getuser(accounttemp.getAccountId()));
+//					System.out.println(this.getuser(accounttemp.getAccountId()));
+				}
+				return "site/index";
+			} catch (Exception e) {
+				// TODO: handle exception
+				model.addAttribute("message","account do not exits");
+				return "site/login";
+			}
+		}
+		
+    	
+    	
     	
     }
     @RequestMapping("register")

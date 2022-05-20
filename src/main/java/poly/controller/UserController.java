@@ -1,6 +1,7 @@
 package poly.controller;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +46,33 @@ public class UserController {
     
     }
     @RequestMapping(value = "update",params = "btnEdit")
-    public String update(ModelMap model,@ModelAttribute("khach_hang") User khach_hang) {
+    public String update(ModelMap model, @Validated @ModelAttribute("khach_hang") User khach_hang, BindingResult errors ) {
+    	
+    	if(khach_hang.getHoTen().trim().equals("") ) {
+			errors.rejectValue("hoTen", "khach_hang", "Vui lòng nhập họ và tên !");
+		}
+    	
+        
+    	
+    	if(khach_hang.getEmail().trim().equals("")) {
+			errors.rejectValue("email", "khach_hang", "Vui lòng nhập email !");
+		}
+    	if(!checkMail(khach_hang.getEmail())) {
+			errors.rejectValue("email", "khach_hang", "Vui lòng nhập đúng định dạng email !");
+		}
+    	
+    	
+    	if(khach_hang.getCmnd().trim().equals("")) {
+			errors.rejectValue("cmnd", "khach_hang", "Vui lòng nhập cmnd !");
+		}
+    	
+    	if(khach_hang.getNgaySinh()== null) {
+			errors.rejectValue("ngaySinh", "khach_hang", "Vui lòng nhập ngày sinh !");
+		}
+    	if(khach_hang.getNgheNghiep().trim().equals("")) {
+			errors.rejectValue("ngheNghiep", "khach_hang", "Vui lòng nhập nghề nghiệp !");
+		}
+    	
     	try {
     		khach_hang.setPhoneNumber(usertemp.getPhoneNumber());
     		khach_hang.setDiaChi(usertemp.getDiaChi());
@@ -73,25 +102,16 @@ public class UserController {
 //    	List<Ve_Xe> list=this.getve(userId);
 //    	System.out.println(list);
 //    	model.addAttribute("listve",list);
-    	User list=this.getuser(userId);
-    	accounttemp=this.getaccuser(list.getIdTaiKhoan().getAccountId());
     	return "site/user/changepassword";
     }
-    @RequestMapping(value = "changepassword")
-    public String changepassword(ModelMap model,@ModelAttribute("tai_khoan") Account tai_khoan) {
-    
-    	tai_khoan.setAccountId(accounttemp.getAccountId());
-    	tai_khoan.setAccountState(accounttemp.getAccountState());
-    	tai_khoan.setIdRole(accounttemp.getIdRole());
-    	Integer check=this.updateacc(tai_khoan);
-    	if(check==1) {
-    		model.addAttribute("message","doi mat khau thanh cong");
-    	}else {
-    		model.addAttribute("message","doi mat khau that bai");
-    	}
-    	System.out.println(accounttemp);
-    	return "site/user/changepassword";
-    }
+//    @RequestMapping(value = "changepassword")
+//    public String changepassword(ModelMap model,@ModelAttribute("tai_khoan") Account tai_khoan,@PathVariable("userId") Integer userId) {
+//    	User list1=this.getuser(userId);
+//    	System.out.println(list1.getIdTaiKhoan().getAccountId());
+//    	accounttemp=this.getaccuser(list1.getIdTaiKhoan().getAccountId());
+//    	System.out.println(accounttemp);
+//    	return "site/user/changepassword";
+//    }
 //    @RequestMapping(value = "changepassword",method = RequestMethod.POST)
 //    public String changepassword1(ModelMap model,@ModelAttribute("tai_khoan") Account tai_khoan) {
 //    	return "site/user/changepassword";
@@ -103,7 +123,6 @@ public class UserController {
     	model.addAttribute("listve1",list);
     	return "site/user/userBookedTickets";
     }
-    
     public Account getaccuser(Integer idtk){
     	Session session=factory.getCurrentSession();
     	String hql="from Account where accountId =:idtk ";
@@ -129,22 +148,7 @@ public class UserController {
     	Ve_Xe list=(Ve_Xe) query.list().get(0);
     	return list;
     }
-     public Integer updateacc(Account tk) {
-    	 Session session=factory.openSession();
-    	 Transaction t=session.beginTransaction();
-    	 try {
-			session.update(tk);
-			t.commit();
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			t.rollback();
-			return 0;
-		}finally {
-			session.close();
-		}
-    	 return 1;
-     }
+    
     public Integer updatekh(User user) {
     	Session session=factory.openSession();
     	Transaction t=session.beginTransaction();
@@ -167,6 +171,11 @@ public class UserController {
     	query.setParameter("userid", userid);
     	User list=(User) query.list().get(0);
     	return list;
+    }
+    
+    public  boolean checkMail(String emailAddress) {
+    	String regexPattern = "^(.+)@(\\S+)$";
+        return Pattern.compile(regexPattern).matcher(emailAddress).matches();
     }
  
 

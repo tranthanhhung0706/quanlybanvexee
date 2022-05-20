@@ -102,13 +102,12 @@
 						<div class="card-header text-muted">THÔNG TIN CÁ NHÂN</div>
 						<div class="card-body">
                               <div class="row mb-3">
-								<label for="inputName" class="col-sm-3 col-form-label">Họ
-									và tên:</label>
+								<label for="inputName" class="col-sm-3 col-form-label">Mã Khách Hàng:</label>
 								<div class="col-sm-9">
-									<form:input path="userId" cssClass="form-control" id="inputName"
+									<form:input path="userId" cssClass="form-control" id="inputName" disabled="true"
 										 />
-
 								</div>
+								
 							</div>
 
 							<div class="row mb-3">
@@ -117,9 +116,12 @@
 								<div class="col-sm-9">
 									<form:input path="hoTen" cssClass="form-control" 
 										 />
-									
+									<form:errors path="hoTen"  />	 
 								</div>
+								
 							</div>
+							
+							
 
 							<div class="row mb-3">
 								<label for="inputEmail" class="col-sm-3 col-form-label">Email:</label>
@@ -127,8 +129,9 @@
 									<form:input path="email" cssClass="form-control"
 										 />
 									
-
+										<form:errors path="email"  />
 								</div>
+								
 							</div>
 
 							<div class="row mb-3">
@@ -140,6 +143,7 @@
 										cssClass="form-control" id="inputPhone" />
 									
 								</div>
+								
 							</div>
 
 							<div class="row mb-3">
@@ -147,9 +151,11 @@
 								<div class="col-sm-9">
 
 									<form:input path="cmnd" cssClass="form-control" id="inputIdno"
-										required="true" />
-									
+										 />
+									<form:errors path="cmnd" />
 								</div>
+								
+								
 							</div>
 							
 							<div class="row my-4">
@@ -165,6 +171,7 @@
 										<form:radiobutton path="gioiTinh" value="Nữ" label="Nữ"
 											cssClass="form-check-input" required="true" />
 									</div>
+									<form:errors path="gioiTinh" />
 
 								</div>
 							</div>
@@ -182,8 +189,10 @@
 										type="text" name="yyyy" id="" placeholder="Năm"
 										class="form-control" style="width: 100px;" value="${user.ngaySinh.substring(0,4) }" required>-->
 									<form:input path="ngaySinh" cssClass="form-control"
-										id="inputJob" required="true" />
+										id="inputJob" />
+										<form:errors path="ngaySinh" />
 								</div>
+								
 								
 							</div>
 							
@@ -193,9 +202,10 @@
 									nghiệp:</label>
 								<div class="col-sm-9">
 									<form:input path="ngheNghiep" cssClass="form-control"
-										id="inputJob" required="true" />
-									
+										id="inputJob"  />
+									<form:errors path="ngheNghiep" />
 								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -205,7 +215,11 @@
 					class="col-12 col-md-4 col-xl-6 d-flex flex-column justify-content-center align-items-center">
 					<button name="btnEdit" type="submit" class="btn btn-primary">Save</button>
 				</div>
-				<p>${message }</p>
+				
+				<div class="alert alert-secondary col-8" role="alert">
+				   <b> ${message } </b>
+				</div>
+				<p></p>
 			</div>
 		</form:form>
 	</div>
