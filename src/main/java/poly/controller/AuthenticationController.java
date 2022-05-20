@@ -32,6 +32,7 @@ public class AuthenticationController {
 	SessionFactory factory;
 	static Account accounttemp;
 	static User usertemp;
+//	hung
     @RequestMapping("sign_in")
     public String sign_in() {
     	return "site/login";
