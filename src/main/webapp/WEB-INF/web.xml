@@ -35,8 +35,8 @@
   </filter-mapping>
 
   <welcome-file-list>
-    <welcome-file>site/index.jsp</welcome-file>
-    <welcome-file>site/index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
   </welcome-file-list>
 </web-app>
 
