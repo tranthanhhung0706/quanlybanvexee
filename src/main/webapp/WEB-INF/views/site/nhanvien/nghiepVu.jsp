@@ -7,7 +7,7 @@
 	<!-- Danh sách các button nghiệp vụ  -->
 	<div class="d-flex justify-content-around">
 		<a href="site/themxe.htm" class="btn btn-primary"> Thêm Xe Mới</a>
-		 <a href="" class="btn btn-primary"> Thêm Chuyến Xe Mới</a> 
+		 <a href="site/themchuyenxe.htm" class="btn btn-primary"> Thêm Chuyến Xe Mới</a> 
 		 <a href="site/chuyen_xe_hoan_thanh.htm" class="btn btn-primary"> Đánh Dấu Xe Đã Hoàn Thành Chuyến Xe</a>
 	</div>
 	

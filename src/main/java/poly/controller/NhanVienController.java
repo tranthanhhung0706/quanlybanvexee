@@ -83,6 +83,16 @@ public class NhanVienController {
 	   model.addAttribute("listChuyenXeChuaHoanThanh",this.getchuyenxe());
 	   return "site/nhanvien/chuyen_xe_hoan_thanh";
    }
+   @RequestMapping("themchuyenxe")
+   public String themchuyenxe(ModelMap model) {
+	   model.addAttribute("chuyenxe",new Chuyen_Xe());
+	   return "site/nhanvien/them_chuyen_xe";
+   }
+   @RequestMapping(value = "themchuyenxe",method = RequestMethod.POST)
+   public String themchuyenxe1(ModelMap model,@ModelAttribute("chuyenxe") Chuyen_Xe chuyenxe) {
+	   
+	   return "site/nhanvien/them_chuyen_xe";
+   }
    public Integer updatechuyenxe(Chuyen_Xe chuyenxe) {
 	   Session session=factory.openSession();
 	   Transaction t=session.beginTransaction();
@@ -168,6 +178,14 @@ public class NhanVienController {
 	   String hql="from Loai_Xe";
 	   Query query=session.createQuery(hql);
 	   List<Loai_Xe> list=query.list();
+	   return list;
+   }
+   @ModelAttribute("tuyenxesel")
+   public List<Tuyen_Xe> gettuyenxe(){
+	   Session session=factory.getCurrentSession();
+	   String hql="from Tuyen_Xe";
+	   Query query=session.createQuery(hql);
+	   List<Tuyen_Xe> list=query.list();
 	   return list;
    }
    public Ve_Xe getve1(Integer idve) {
