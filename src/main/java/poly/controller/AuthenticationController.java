@@ -29,7 +29,7 @@ import ptithcm.bean.Mailer;
 @Controller
 @RequestMapping("site/")
 @Transactional
-public class AuthenticationController {/////////////tuuuuuuuuuu
+public class AuthenticationController {
 	@Autowired
 	SessionFactory factory;
 	static Account accounttemp;
