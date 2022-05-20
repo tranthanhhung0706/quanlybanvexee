@@ -57,7 +57,6 @@
 					<th scope="col">SL</th>
 					<th scope="col">Tuyến đường</th>
 					<th scope="col">Ngày lập</th>
-				
 					<th scope="col">Tổng tiền</th>
 					<th scope="col">Thanh toán</th>
 					<th scope="col">Trạng thái</th>
@@ -73,7 +72,6 @@
 							class="fas fa-long-arrow-alt-right"></i>
 							${veXe.idChuyenXe.maTuyen.diaDiemDen.tenDiaDiem }
 						</td>
-				
 						<td>${veXe.ngayLap }</td>
 						<td>${veXe.tongTien }</td>
 						<td>${veXe.hinhThucThanhToan }</td>
