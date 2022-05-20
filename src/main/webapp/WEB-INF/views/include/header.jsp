@@ -122,7 +122,7 @@
 									href="site/thanh_toan/${tk_nv.idNhanVien}.htm?btnid3"><i
 										class="fas fa-history d-inline-block"></i> Thanh toán vé</a></li>
 										
-								<li><a class="dropdown-item" href="${pageContext.request.contextPath }/nhanvien/nghiepVu"><i class="fas fa-bus-alt"></i> Thêm chuyến xe</a></li>
+								<li><a class="dropdown-item" href="site/nghiepvu.htm"><i class="fas fa-bus-alt"></i> Thêm chuyến xe</a></li>
 
 								<li><hr class="dropdown-divider"></li>
 

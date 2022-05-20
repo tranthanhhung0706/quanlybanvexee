@@ -18,10 +18,14 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ptithcm.Entity.Chuyen_Xe;
+import ptithcm.Entity.Loai_Xe;
 import ptithcm.Entity.Nhan_Vien;
 import ptithcm.Entity.Ve_Xe;
+import ptithcm.Entity.Xe;
 
 @Controller
 @RequestMapping("site/")
@@ -37,6 +41,53 @@ public class NhanVienController {
 	   model.addAttribute("nhan_viens",list);
 	   model.addAttribute("nhan_vien",this.getnv(idNhanVien));
 	   return "site/user/userInfo";
+   }
+   @RequestMapping("nghiepvu")
+   public String nghiepvu(ModelMap model) {
+	   return "site/nhanvien/nghiepVu";
+   }
+   @RequestMapping("themxe")
+   public String themxe(ModelMap model) {
+	   model.addAttribute("xe",new Xe());
+	   return "site/nhanvien/themxe";
+   }
+   @RequestMapping(value = "themxe",method = RequestMethod.POST)
+   public String themxemoi(ModelMap model,@ModelAttribute("xe") Xe xe) {
+	   Integer check=this.savexe(xe);
+	   if(check==1) {
+		   model.addAttribute("message","them  xe thanh cong");
+	   }else {
+		   model.addAttribute("message","them xe that bai");
+	   }
+	   return "site/nhanvien/themxe";
+   }
+   @RequestMapping("chuyen_xe_hoan_thanh")
+   public String chuyenxeht(ModelMap model) {
+	   model.addAttribute("listChuyenXeChuaHoanThanh",this.getchuyenxe());
+	   return "site/nhanvien/chuyen_xe_hoan_thanh";
+   }
+   public List<Chuyen_Xe> getchuyenxe(){
+	   Session session=factory.getCurrentSession();
+	   String hql="From Chuyen_Xe where daHoanThanh =:dahoanthanh";
+	   Query query=session.createQuery(hql);
+	   query.setParameter("dahoanthanh", 0);
+	   List<Chuyen_Xe> list=query.list();
+	   return list;
+   }
+   public Integer savexe(Xe xe) {
+	   Session session=factory.openSession();
+	   Transaction t=session.beginTransaction();
+	   try {
+		 session.save(xe);
+		 t.commit();
+	} catch (Exception e) {
+		// TODO: handle exception
+		t.rollback();
+		return 0;
+	}finally {
+		session.close();
+	}
+	   return 1;
    }
    @RequestMapping(value = "update2",params = "btnEdit2")
    public String update2(ModelMap model,@ModelAttribute("nhan_vien") Nhan_Vien nhan_vien) {
@@ -70,6 +121,14 @@ public class NhanVienController {
 	   model.addAttribute("listve1",list1);
 	   System.out.println(request.getParameter("tuyenDuongInput"));
 	   return "site/nhanvien/veChuaThanhToanList";
+   }
+   @ModelAttribute("loaixesel")
+   public List<Loai_Xe> getloaixe(){
+	   Session session=factory.getCurrentSession();
+	   String hql="from Loai_Xe";
+	   Query query=session.createQuery(hql);
+	   List<Loai_Xe> list=query.list();
+	   return list;
    }
    public Ve_Xe getve1(Integer idve) {
 	   Session session=factory.getCurrentSession();
