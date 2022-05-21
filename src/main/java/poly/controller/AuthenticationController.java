@@ -45,7 +45,7 @@ public class AuthenticationController {
 			errors.rejectValue("username", "Account", "Vui long nhap ho ten !");
 		}
 		if(account.getPassword()== null) {
-			errors.rejectValue("password", "Account", "Vui long nhap diem !");
+			errors.rejectValue("password", "Account", "Vui long nhap mat khau !");
 		}
 		
 		
@@ -193,18 +193,61 @@ public class AuthenticationController {
     	return "site/user/forgotpassword";
     }
     @RequestMapping(value = "sign_up",method = RequestMethod.POST)
-    public String register(ModelMap model,@ModelAttribute("tks") Account tk,@ModelAttribute("kh") User kh) {
-    	tk.setAccountState(1);
-    	kh.setPhoneNumber(tk.getUsername());
-    	Integer check=this.savetk(tk);
-    	if(check==1) {
-    		model.addAttribute("message","dang ky thanh cong");
-    	}else {
-    		model.addAttribute("message","dang ky that bai");
+    public String register(ModelMap model,@ModelAttribute("tks") Account tk, @ModelAttribute("role") Role role,@ModelAttribute("kh") User kh
+    		,@RequestParam("name") String name
+    		,@RequestParam("gioitinh") String gioitinh
+    		,@RequestParam("email") String email,@RequestParam("nghenghiep") String nghenghiep
+    		,@RequestParam("cmnd") String cmnd,@RequestParam("ngaysinh") String ngaysinh
+    		,@RequestParam("sdt") String sdt,@RequestParam("diachi") String diachi, BindingResult errors) {
+    	int check=0;
+    	if(sdt.trim().equals("")) {
+    		check++;
+    		model.addAttribute("sdterror","Nhập số điện thoại");
+    	}else if(!sdt.matches("09[0-9]{8}")) {
+    		check++;
+    		model.addAttribute("sdterror","Số điện thoại không hợp lệ");
     	}
+    	if(name.trim().equals("")) {
+    		check++;
+    		model.addAttribute("hotenerror","Nhập họ tên");
+    	}
+    	if(tk.getPassword().trim().equals("")) {
+    		check++;
+    		model.addAttribute("passerror","Nhập mật khẩu");
+    	}else if(tk.getPassword().trim().length() <6) {
+    		check++;
+    		model.addAttribute("passerror","Mật khẩu ít nhất 6 kí tự");
+    	}
+    	if(check!=0)  return "site/register";
+    	tk.setAccountState(1);
+    	tk.setUsername(sdt);
+    	
+    	kh.setPhoneNumber(tk.getUsername());
+   
+    	kh.setHoTen(name);
+    	kh.setGioiTinh(gioitinh);
+    	kh.setCmnd(cmnd);
+    	kh.setEmail(email);
+    	kh.setNgaySinh(ngaysinh);
+    	kh.setNgheNghiep(nghenghiep);
+    	kh.setDiaChi(diachi);
+    	
+    	role.setUsername(sdt);
+    	role.setAuthority("ROLE_USER");
+    	//role.getId();
+    	tk.setIdRole(role);
     	kh.setIdTaiKhoan(tk);
-    	Integer check1=this.savekh(kh);
-    	return "site/register";
+		Integer check3=this.saverole(role);
+    	Integer check1=this.savetk(tk);
+    	
+    	Integer check2=this.savekh(kh);
+    	if(check1==1 && check2==1 &&check3==1 ) {
+    		model.addAttribute("message","dang ki thanh cong");
+    		return "site/register";
+    	}else {
+    		model.addAttribute("message","dang ki that bai");
+    		return "site/register";
+    	}
     }
     public Integer savekh(User kh) {
     	Session session=factory.openSession();
@@ -213,7 +256,18 @@ public class AuthenticationController {
 			session.save(kh);
 			t.commit();
 		} catch (Exception e) {
-			// TODO: handle exception
+			t.rollback();
+			return 0;
+		}
+    	return 1;
+    }
+    public Integer saverole(Role role) {
+    	Session session=factory.openSession();
+    	Transaction t=session.beginTransaction();
+    	try {
+			session.save(role);
+			t.commit();
+		} catch (Exception e) {
 			t.rollback();
 			return 0;
 		}
