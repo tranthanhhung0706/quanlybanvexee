@@ -87,8 +87,8 @@
 						<c:if test="${veXe.trangThai.equals(\"Đã hủy\") }">
 							<td class="text-danger fw-bold">${veXe.trangThai }</td>
 						</c:if>
-						
-						<td><a class="btn btn-info" href="${pageContext.request.contextPath }/chiTietVe?veId=${veXe.idVe}">Chi tiết</a></td>
+						<!--  <td><a class="btn btn-info" href="${pageContext.request.contextPath }/chiTietVe?veId=${veXe.idVe}">Chi tiết</a></td>-->
+						<td><a class="btn btn-info" href="site/chitiet/${veXe.idVe}.htm">Chi tiết</a></td>
 					</tr>
 				</c:forEach>
                   <c:forEach var="l" items="${listve}">
@@ -111,7 +111,7 @@
 						<c:if test="${l.trangThai.equals(\"Đã hủy\") }">
 							<td class="text-danger fw-bold">${l.trangThai }</td>
 						</c:if>
-						<td><a class="btn btn-info" href="${pageContext.request.contextPath }/chiTietVe?veId=${l.idVe}">Chi tiết</a></td>
+						<td><a class="btn btn-info" href="site/chitiet/${l.idVe}.htm">Chi tiết</a></td>
                      </tr>
                   </c:forEach>
               <tr>
@@ -133,7 +133,7 @@
 						<c:if test="${listve1.trangThai.equals(\"Đã hủy\") }">
 							<td class="text-danger fw-bold">${listve1.trangThai }</td>
 						</c:if>
-						<td><a class="btn btn-info" href="${pageContext.request.contextPath }/chiTietVe?veId=${listve1.idVe}">Chi tiết</a></td>
+						<td><a class="btn btn-info" href="site/chitiet/${veXe.idVe}.htm">Chi tiết</a></td>
 				</tr>
 			</tbody>
 		</table>

@@ -3,7 +3,6 @@
 
 <%@include file="/WEB-INF/views/include/header.jsp" %>
 
-
 	<!-------------------- body ------------------------->
 	<!-------------------- Thông tin về vé ------------/-->
 	<div class="container">
@@ -147,12 +146,12 @@
 		<div class="d-flex justify-content-end m-auto my-4"
 			style="max-width: 900px;">
 
-			<sec:authorize access="hasRole('USER')">
+			<c:if test="${tk_kh.hoTen !=null }">
 				<a class="btn btn-warning  border rounded-pill px-4 me-2"
-					href="${pageContext.request.contextPath }/user/userBookedTickets">Quay
+					href="site/userbookedticket/${tk_kh.userId}.htm?btnid1">Quay
 					lại</a>
 				<c:if test="${!veXe.trangThai.equals(\"Đã hủy\") && !veXe.trangThai.equals('Đã thanh toán') }">
-					<form:form action="${pageContext.request.contextPath }/user/huyVe"
+					<form:form action="site/huyve/${tk_kh.userId}.htm"
 						method="POST">
 						<input type="hidden" name="idVe" value="${veXe.idVe }">
 						<input type="submit" value="Hủy vé"
@@ -160,8 +159,8 @@
 					</form:form>
 				</c:if>
 
-			</sec:authorize>
-			<sec:authorize access="hasRole('EMPLOYEE')">
+			</c:if>
+			<c:if test="${tk_nv.hoTen !=null }">
 				<a class="btn btn-warning  border rounded-pill px-4 me-2"
 					href="${pageContext.request.contextPath }/nhanvien/veChuaThanhToan">Quay
 					lại</a>
@@ -191,7 +190,7 @@
 				
 				
 
-			</sec:authorize>
+			</c:if>
 
 		</div>
 	</div>

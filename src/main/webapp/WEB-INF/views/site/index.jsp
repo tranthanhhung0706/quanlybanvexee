@@ -12,7 +12,7 @@
 	<div class="card  shadow position-relative">
 		<div class="card-body">
 			<form:form
-				action="${pageContext.request.contextPath }/veXe/datVe/step2"
+				action="site/step2.htm"
 				method="GET" class="position-relative validation-loaive"
 				id="formChonVe" novalidate="true"
 				onsubmit="return validateLoaiVeForm()">

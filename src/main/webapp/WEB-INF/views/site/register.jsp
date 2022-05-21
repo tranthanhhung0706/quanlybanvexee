@@ -14,8 +14,7 @@
 				value="${_csrf.token}" />
 			<div class="mb-3">
 				<label for="nameInput" class="form-label">Họ tên *</label>
-				<form:input type="text" class="form-control" path="username"
-						/>
+				<form:input type="text" class="form-control" path="username"/>
 					<br />
 			</div>
 			<div class="mb-3">
