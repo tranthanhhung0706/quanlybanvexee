@@ -105,7 +105,6 @@ public class AuthenticationController {
 //    	model.addAttribute("tks",new Account());
     	return "site/register";
     }
-//    hung
     @Autowired
     Mailer mailer;
     static String codeTemp;
