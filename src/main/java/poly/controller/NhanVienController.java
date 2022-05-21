@@ -86,12 +86,21 @@ public class NhanVienController {
    @RequestMapping("themchuyenxe")
    public String themchuyenxe(ModelMap model) {
 	   model.addAttribute("chuyenxe",new Chuyen_Xe());
-	   model.addAttribute("tuyenxesel1",this.gettuyenxe());
+	   model.addAttribute("tuyenXeList",this.gettuyenxe());
 	   return "site/nhanvien/them_chuyen_xe";
    }
    @RequestMapping(value = "themchuyenxe",method = RequestMethod.POST)
-   public String themchuyenxe1(ModelMap model,@ModelAttribute("chuyenxe") Chuyen_Xe chuyenxe) {
+   public String themchuyenxe1(ModelMap model,@ModelAttribute("chuyenxe") Chuyen_Xe chuyenxe,@RequestParam("tuyenXe")String tuyenXe, @RequestParam("ngayChay") String ngayChay,@RequestParam("hh")String hh,
+			  @RequestParam("mm")String mm) {
+	   String[] idDiaDiem =tuyenXe.split(",");
+	   System.out.println(Integer.parseInt(idDiaDiem[0]));
+	   System.out.println(Integer.parseInt(idDiaDiem[1]));
+	   Tuyen_Xe tempTuyenXe=this.gettuyenxe(Integer.parseInt(idDiaDiem[0]),Integer.parseInt(idDiaDiem[1]));
+	   System.out.print(tempTuyenXe);
 	   
+	   String giochay=ngayChay+" "+hh+":"+mm;
+	   chuyenxe.setMaTuyen(tempTuyenXe);
+	   chuyenxe.setGioChay(giochay);
 	   Integer check=this.savethemchuyenxe(chuyenxe);
 	   if(check==1) {
 		   model.addAttribute("message","them chuyen  xe thanh cong");
@@ -99,6 +108,16 @@ public class NhanVienController {
 		   model.addAttribute("message","them chuyen xe that bai");
 	   }
 	   return "site/nhanvien/them_chuyen_xe";
+   }
+   public Tuyen_Xe gettuyenxe(Integer id_ddi,Integer id_dden) {
+	   Session session=factory.getCurrentSession();
+	   String hql="FROM Tuyen_Xe TX WHERE TX.diaDiemDi.idDiaDiem = :id_ddi" + 
+				" AND TX.diaDiemDen.idDiaDiem = :id_dden";
+	   Query query=session.createQuery(hql);
+	   query.setParameter("id_ddi", id_ddi);
+	   query.setParameter("id_dden", id_dden);
+	   Tuyen_Xe list=(Tuyen_Xe) query.list().get(0);
+	   return list;
    }
    public Integer savethemchuyenxe(Chuyen_Xe chuyenxe) {
 	   Session session=factory.openSession();
