@@ -73,16 +73,17 @@
 							class="fas fa-long-arrow-alt-right"></i>
 							${veXe.idChuyenXe.maTuyen.diaDiemDen.tenDiaDiem }
 						</td>
-				
 						<td>${veXe.ngayLap }</td>
 						<td>${veXe.tongTien }</td>
 						<td>${veXe.hinhThucThanhToan }</td>
 						<td>${veXe.trangThai }</td>
 						<td>
-						<a class="btn btn-success" href="${pageContext.request.contextPath }/chiTietVe?veId=${veXe.idVe}">Chi tiết</a>
+						<a class="btn btn-success" href="site/chitiet/${veXe.idVe}.htm">Chi tiết</a>
 						</td>
+						
 					</tr>
 				</c:forEach>
+				<c:if test="${listve1.idVe != null}">
                     <tr>
 						<th scope="row">${listve1.idVe }</th>
 						<td>${listve1.gheList.size() }</td>
@@ -95,10 +96,9 @@
 						<td>${listve1.hinhThucThanhToan }</td>
 						<td>${listve1.trangThai }</td>
 						<td>
-						<a class="btn btn-success" href="${pageContext.request.contextPath }/chiTietVe?veId=${veXe.idVe}">Chi tiết</a>
-						
+						<a class="btn btn-success" href="site/chitiet/${veXe.idVe}.htm">Chi tiết</a>
 					</tr>
-
+             </c:if>
 			</tbody>
 		</table>
 
