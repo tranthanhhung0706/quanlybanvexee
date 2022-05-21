@@ -34,24 +34,21 @@
   					
   					</c:forEach>
 				</select>-->
-				<select class="form-select" id="chonTuyenXe" name="tuyenXe" style="font-family: 'FontAwesome', 'Second Font name';">
-  					<c:forEach items="${tuyenXeList }" var="tuyenXe">
-  						<option value="${tuyenXe.diaDiemDi.idDiaDiem },${tuyenXe.diaDiemDen.idDiaDiem}">
-  							${tuyenXe.diaDiemDi.tenDiaDiem } &#xf30b; ${tuyenXe.diaDiemDen.tenDiaDiem }
-  						</option>
-  					</c:forEach>
-				</select>
-				<!-- <form:select path="maTuyen.idTuyen" items="${tuyenxesel}"
+				<form:select path="maTuyen.idTuyen" items="${tuyenxesel}"
 						itemLabel="idTuyen" itemValue="idTuyen"
 						class="form-select form-select-lg mb-6"
 						aria-label=".form-select-lg example">
-			     </form:select>-->
+			</form:select>
+		
+	
 			</div>
 			
 			<div class="mb-3">
 				<label for="ngayChayInput" class="form-label">Chọn Ngày Khởi Hành:</label>
-				<input type="date" onkeydown="return false" class="form-control" id="ngayChayInput" name="ngayChay"/>
-			</div>  
+				<form:input type="date" onkeydown="return false" class="form-control" id="ngayChayInput" path="gioChay"/>
+			</div>
+		
+			<!--  
 			 <div class="my-4">
 				<div class="form-label">Giờ chạy:</div>
 
@@ -62,7 +59,7 @@
 						<input type="text" name="mm" id="" placeholder="Phút"
 						class="form-control" style="width: 100px;" value="" required> 
 						<div class="invalid-feedback">Xin vui lòng nhập giờ, phút hợp lệ.</div>
-				</div>
+				</div>-->
 			<div>
 			<input type="submit" class="btn btn-success btn-lg mt-3" value="Thêm" />
 			   </div>
