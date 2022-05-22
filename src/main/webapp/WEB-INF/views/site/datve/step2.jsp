@@ -36,7 +36,7 @@
 				<form action = "${pageContext.request.contextPath }/veXe/datVe/step2KhuHoi" method="POST" id="form${chuyenXe.maChuyen }">
 			</c:if>
 			<c:if test="${loaiVe.equals(\"motchieu\") }">
-				<form action = "${pageContext.request.contextPath }/veXe/datVe/step3" method="POST" id="form${chuyenXe.maChuyen }">
+				<form action = "site/step3/${tk_kh.userId}.htm" method="POST" id="form${chuyenXe.maChuyen }">
 			</c:if>
 			
 				<input type="hidden" name="chuyenXe" value="${chuyenXe.maChuyen }">

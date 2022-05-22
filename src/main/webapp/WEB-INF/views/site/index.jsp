@@ -12,7 +12,7 @@
 	<div class="card  shadow position-relative">
 		<div class="card-body">
 			<form:form
-				action="site/step2.htm"
+				action="site/step2/${tk_kh.userId}.htm"
 				method="GET" class="position-relative validation-loaive"
 				id="formChonVe" novalidate="true"
 				onsubmit="return validateLoaiVeForm()">
@@ -83,7 +83,7 @@
 				</div>
 				<button type="submit" id="btnTimXe"
 					class="btn btn-primary position-absolute top-100 start-50 start-80 translate-middle-x  border rounded-3">
-					<i class="fas fa-search"></i> TÌM CHUYẾN XE
+					<i class="fas fa-search">TÌM CHUYẾN XE</i> 
 				</button>
 			</form:form>
 		</div>

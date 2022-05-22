@@ -15,12 +15,11 @@
 			<li class="step-wizard-item"><span class="progress-count">2</span>
 				<span class="progress-label">XÁC NHẬN LỘ TRÌNH</span></li>
 			<li class="step-wizard-item current-item"><span
-				class="progress-count ">3</span> <sec:authorize
-					access="hasRole('USER')">
+				class="progress-count ">3</span> <c:if test="${tk_kh.hoTen !=null }">
 					<span class="progress-label"> CHẤP NHẬN ĐIỀU KHOẢN </span>
-				</sec:authorize> <sec:authorize access="hasRole('EMPLOYEE')">
+				</c:if> <c:if test="${tk_nv.hoTen !=null }">
 					<span class="progress-label"> THÔNG TIN KHÁCH HÀNG </span>
-				</sec:authorize></li>
+				</c:if></li>
 			<li class="step-wizard-item "><span class="progress-count">4</span>
 				<span class="progress-label">THANH TOÁN</span></li>
 		</ul>
