@@ -14,6 +14,24 @@
 				<div class="card m-auto " style="max-width: 700px;">
 					<div class="card-header text-muted">THÔNG TIN CÁ NHÂN</div>
 					<div class="card-body">
+<%-- 					${photo_name } --%>
+							
+						<div class="">
+							<div class="text-muted">Ảnh đại diện:</div>
+							<c:choose>
+								<c:when test="${photo_name == null}">
+									<div class="col-7 text-muted">Chưa có thông tin</div>
+								</c:when>
+								<c:otherwise>
+									<img src="${photo_name }" alt="" width="100px" height="100px"/>
+								</c:otherwise>
+							</c:choose>
+
+
+						</div>
+					
+						
+					
 						<div class="row my-4">
 							<div class="col-5 text-muted">Họ và Tên:</div>
 							<div class="col-7">${khach_hangs.hoTen}</div>
@@ -94,7 +112,7 @@
        <div class="container ">
 		<h3 class="text-center my-4">Thông tin cá nhân</h3>
 		<form:form action="site/update.htm" modelAttribute="khach_hang" method="post"
-			cssClass="infoValidation" novalidate="true">
+			cssClass="infoValidation" enctype="multipart/form-data">
 			<div class="row my-5">
 
 				<div class="col-12 col-md-8 col-xl-6">
@@ -102,13 +120,26 @@
 						<div class="card-header text-muted">THÔNG TIN CÁ NHÂN</div>
 						<div class="card-body">
                               <div class="row mb-3">
-								<label for="inputName" class="col-sm-3 col-form-label">Mã Khách Hàng:</label>
+								<label for="inputName" class="col-sm-3 col-form-label">Họ
+									và tên:</label>
 								<div class="col-sm-9">
-									<form:input path="userId" cssClass="form-control" id="inputName" disabled="true"
+									<form:input path="userId" cssClass="form-control" id="inputName"
 										 />
+
 								</div>
-								
 							</div>
+							
+							<div class="row mb-3">
+								<label for="inputName" class="col-sm-3 col-form-label">Ảnh đại diện:</label>
+								<div class="col-sm-9">
+									<input name="hinhAnh2" cssClass="form-control" type="file" />
+								</div>
+							</div>
+							
+						
+						
+						
+							
 
 							<div class="row mb-3">
 								<label for="inputName" class="col-sm-3 col-form-label">Họ
@@ -118,10 +149,7 @@
 										 />
 									<form:errors path="hoTen"  />	 
 								</div>
-								
 							</div>
-							
-							
 
 							<div class="row mb-3">
 								<label for="inputEmail" class="col-sm-3 col-form-label">Email:</label>
@@ -129,9 +157,8 @@
 									<form:input path="email" cssClass="form-control"
 										 />
 									
-										<form:errors path="email"  />
+									<form:errors path="email"  />
 								</div>
-								
 							</div>
 
 							<div class="row mb-3">
@@ -143,7 +170,6 @@
 										cssClass="form-control" id="inputPhone" />
 									
 								</div>
-								
 							</div>
 
 							<div class="row mb-3">
@@ -154,8 +180,6 @@
 										 />
 									<form:errors path="cmnd" />
 								</div>
-								
-								
 							</div>
 							
 							<div class="row my-4">
@@ -171,7 +195,8 @@
 										<form:radiobutton path="gioiTinh" value="Nữ" label="Nữ"
 											cssClass="form-check-input" required="true" />
 									</div>
-									<form:errors path="gioiTinh" />
+									
+									
 
 								</div>
 							</div>
@@ -189,10 +214,8 @@
 										type="text" name="yyyy" id="" placeholder="Năm"
 										class="form-control" style="width: 100px;" value="${user.ngaySinh.substring(0,4) }" required>-->
 									<form:input path="ngaySinh" cssClass="form-control"
-										id="inputJob" />
-										<form:errors path="ngaySinh" />
+										id="inputJob" required="true" />
 								</div>
-								
 								
 							</div>
 							
@@ -202,10 +225,11 @@
 									nghiệp:</label>
 								<div class="col-sm-9">
 									<form:input path="ngheNghiep" cssClass="form-control"
-										id="inputJob"  />
+										id="inputJob"/>
+										
 									<form:errors path="ngheNghiep" />
+									
 								</div>
-								
 							</div>
 						</div>
 					</div>
@@ -215,11 +239,7 @@
 					class="col-12 col-md-4 col-xl-6 d-flex flex-column justify-content-center align-items-center">
 					<button name="btnEdit" type="submit" class="btn btn-primary">Save</button>
 				</div>
-				
-				<div class="alert alert-secondary col-8" role="alert">
-				   <b> ${message } </b>
-				</div>
-				<p></p>
+				<p>${message }</p>
 			</div>
 		</form:form>
 	</div>
