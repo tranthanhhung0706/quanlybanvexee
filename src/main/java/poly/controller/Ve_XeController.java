@@ -183,8 +183,8 @@ public class Ve_XeController {
 	   }
 	   return "site/datve/step4";
    }
-   @RequestMapping(value = "userBookedTickets",method = RequestMethod.POST)
-   public String luuVePage(@RequestParam("hinhThucThanhToan") String hinhThuc, HttpServletRequest request,ModelMap model) {
+   @RequestMapping(value = "userBookedTickets/{userId}.htm",method = RequestMethod.POST)
+   public String luuVePage(@RequestParam("hinhThucThanhToan") String hinhThuc, HttpServletRequest request,ModelMap model,@PathVariable("userId") Integer userId) {
 		
 		/////////////// Nếu là vé 1 chiều
 		String loaiVe = (String) request.getSession().getAttribute("loaiVe");
@@ -234,8 +234,19 @@ public class Ve_XeController {
 			request.getSession().removeAttribute("veXeChinhThuc1");
 			request.getSession().removeAttribute("loaiVe");
 		}
+		List<Ve_Xe> list=this.getve(userId);
+    	System.out.println(list);
+    	model.addAttribute("listve",list);
 		return "site/user/userBookedTickets";
 	}
+   public List<Ve_Xe> getve(Integer userid){
+   	Session session=factory.getCurrentSession();
+   	String hql="from Ve_Xe v where v.idKhachHang.userId =:userid";
+   	Query query=session.createQuery(hql);
+   	query.setParameter("userid", userid);
+   	List<Ve_Xe> list=query.list();
+   	return list;
+   }
    public Integer saveve(Ve_Xe ve) {
 	   Session session=factory.openSession();
 	   Transaction t=session.beginTransaction();

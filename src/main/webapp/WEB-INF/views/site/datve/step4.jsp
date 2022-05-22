@@ -231,7 +231,7 @@
 		<form action="${pageContext.request.contextPath }/nhanvien/veChuaThanhToan" method="POST" id="phuongThucThanhToan">
 		</c:if>	
 		<c:if test="${tk_kh.hoTen !=null }">
-		<form action="site/userBookedTickets.htm" method="POST" id="phuongThucThanhToan">
+		<form action="site/userBookedTickets/${tk_kh.userId}.htm" method="POST" id="phuongThucThanhToan">
 		</c:if>
 		
 		
