@@ -227,12 +227,12 @@
 	<div class="container">
 		<h6 class="text-center text-uppercase my-4 green-text fw-bold">Chọn
 			cách thanh toán</h6>
-		<sec:authorize access="hasRole('EMPLOYEE')">
+		<c:if test="${tk_nv.hoTen !=null }">
 		<form action="${pageContext.request.contextPath }/nhanvien/veChuaThanhToan" method="POST" id="phuongThucThanhToan">
-		</sec:authorize>	
-		<sec:authorize access="hasRole('USER')">
-		<form action="${pageContext.request.contextPath }/user/userBookedTickets" method="POST" id="phuongThucThanhToan">
-		</sec:authorize>
+		</c:if>	
+		<c:if test="${tk_kh.hoTen !=null }">
+		<form action="site/userBookedTickets.htm" method="POST" id="phuongThucThanhToan">
+		</c:if>
 		
 		
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

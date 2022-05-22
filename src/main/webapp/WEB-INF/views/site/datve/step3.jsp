@@ -98,7 +98,7 @@
 
 	<div class="row">
 		<!--  form nhập thông tin người dùng nếu đăng kí offline  -->
-		<sec:authorize access="hasRole('EMPLOYEE')">
+		<c:if test="${tk_nv.hoTen !=null }">
 			<div class="col-12 col-md-6">
 				<form action="${pageContext.request.contextPath }/veXe/datVe/step4"
 					method="POST" id="form12" class="validateKhachHang" novalidate>
@@ -149,7 +149,7 @@
 				</form>
 			</div>
 
-		</sec:authorize>
+		</c:if>
 
 		<!--  Điều khoản -->
 		<div class="col-12 col-md-6 m-auto">
@@ -198,20 +198,20 @@
 		<div>
 			<div>
 				<!-- ///////////////////////////// test đường link qua bước 4 //////////////// -->
-				<sec:authorize access="hasRole('USER')">
-					<a href="${pageContext.request.contextPath }/veXe/datVe/step4">
+				<c:if test="${tk_kh.hoTen !=null }">
+					<a href="site/step4.htm">
 						<button type="submit" form="ten_form_can_submit"
 							class="btnTiepTuc btn btn-danger rounded-pill p-2">
 							Tiếp tục<i class="ms-3 pt-1 fas fa-chevron-right"></i>
 						</button>
 					</a>
-				</sec:authorize>
-				<sec:authorize access="hasRole('EMPLOYEE')">
+				</c:if>
+				<c:if test="${tk_nv.hoTen !=null }">
 					<button type="submit" form="form12"
 						class="btnTiepTuc btn btn-danger rounded-pill p-2">
 						Tiếp tục<i class="ms-3 pt-1 fas fa-chevron-right"></i>
 					</button>
-				</sec:authorize>
+			   </c:if>
 			</div>
 		</div>
 	</div>
