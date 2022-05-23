@@ -78,14 +78,14 @@
 				<div class="d-flex justify-content-end">
 					<a href="${pageContext.request.contextPath }/veXe/datVe/step3" class="btn btn-danger m-2">Hủy</a>
 					<form:form
-						action="${pageContext.request.contextPath }/veXe/datVe/step4"
+						action="site/step4.htm"
 						method="POST">
 						<input type="hidden" name="doiThongTin" value="false">
 						<input type="hidden" name="phoneNumber" value="${tempUser.phoneNumber }">
 						<input type="submit" value="Giữ lại thông tin cũ" class="btn btn-secondary m-2">
 					</form:form>
 					<form:form
-						action="${pageContext.request.contextPath }/veXe/datVe/step4"
+						action="site/step4.htm"
 						method="POST">
 						<input type="hidden" name="doiThongTin" value="true">
 						<input type="hidden" name="phoneNumber" value="${tempUser.phoneNumber }">
@@ -100,7 +100,7 @@
 		<!--  form nhập thông tin người dùng nếu đăng kí offline  -->
 		<c:if test="${tk_nv.hoTen !=null }">
 			<div class="col-12 col-md-6">
-				<form action="${pageContext.request.contextPath }/veXe/datVe/step4"
+				<form action="site/step4.htm"
 					method="POST" id="form12" class="validateKhachHang" novalidate>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />

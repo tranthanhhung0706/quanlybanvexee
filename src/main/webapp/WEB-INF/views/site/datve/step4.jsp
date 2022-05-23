@@ -228,7 +228,7 @@
 		<h6 class="text-center text-uppercase my-4 green-text fw-bold">Chọn
 			cách thanh toán</h6>
 		<c:if test="${tk_nv.hoTen !=null }">
-		<form action="${pageContext.request.contextPath }/nhanvien/veChuaThanhToan" method="POST" id="phuongThucThanhToan">
+		<form action="site/veChuaThanhToan.htm" method="POST" id="phuongThucThanhToan">
 		</c:if>	
 		<c:if test="${tk_kh.hoTen !=null }">
 		<form action="site/userBookedTickets/${tk_kh.userId}.htm" method="POST" id="phuongThucThanhToan">

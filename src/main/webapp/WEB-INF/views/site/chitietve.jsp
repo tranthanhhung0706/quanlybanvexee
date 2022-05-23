@@ -162,26 +162,22 @@
 			</c:if>
 			<c:if test="${tk_nv.hoTen !=null }">
 				<a class="btn btn-warning  border rounded-pill px-4 me-2"
-					href="${pageContext.request.contextPath }/nhanvien/veChuaThanhToan">Quay
+					href="site/thanh_toan/${tk_nv.idNhanVien}.htm?btnid3">Quay
 					lại</a>
 				<c:if test="${!veXe.trangThai.equals(\"Đã hủy\") }">
 
 					<form:form
-						action="${pageContext.request.contextPath }/nhanvien/huyVe"
+						action="site/huyVe/${tk_nv.idNhanVien}.htm"
 						method="POST">
 						<input type="hidden" name="idVe" value="${veXe.idVe }">
-						<input type="hidden" name="idNhanVien"
-							value="${nhanVien.idNhanVien }" />
 						<input type="submit" value="Hủy vé"
 							class="btn btn-danger border rounded-pill px-4 me-2" />
 					</form:form>
 					
 					<form:form
-					action="${pageContext.request.contextPath }/nhanvien/thanhtoanve"
+					action="site/thanh_toan_ve/${tk_nv.idNhanVien}.htm"
 					method="POST">
 					<input type="hidden" name="idVe" value="${ veXe.idVe}">
-					<input type="hidden" name="idNhanVien"
-						value="${nhanVien.idNhanVien }" />
 					<input type="submit" value="Thanh toán"
 						class="btn btn-success border rounded-pill px-4 me-2" />
 				</form:form>

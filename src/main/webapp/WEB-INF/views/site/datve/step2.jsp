@@ -32,13 +32,24 @@
 
 		<!--  Cài Foreach ở đây lập qua từng chuyến xe trong chuyenXeCanTim rồi -->
 		<c:forEach items="${chuyenXeCanTim }" var="chuyenXe">
+		   <c:if test="${tk_kh.userId !=null}">
 			<c:if test="${loaiVe.equals(\"khuhoi\") }">
-				<form action = "${pageContext.request.contextPath }/veXe/datVe/step2KhuHoi" method="POST" id="form${chuyenXe.maChuyen }">
+				<!--  <form action = "${pageContext.request.contextPath }/veXe/datVe/step2KhuHoi" method="POST" id="form${chuyenXe.maChuyen }">-->
+				<form action = "site/step2KhuHoi/${tk_kh.userId}.htm" method="POST" id="form${chuyenXe.maChuyen }">
 			</c:if>
 			<c:if test="${loaiVe.equals(\"motchieu\") }">
 				<form action = "site/step3/${tk_kh.userId}.htm" method="POST" id="form${chuyenXe.maChuyen }">
 			</c:if>
-			
+			</c:if>
+			<c:if test="${tk_kh.userId ==null}">
+			    <c:if test="${loaiVe.equals(\"khuhoi\") }">
+				<!--  <form action = "${pageContext.request.contextPath }/veXe/datVe/step2KhuHoi" method="POST" id="form${chuyenXe.maChuyen }">-->
+				<form action = "site/step2KhuHoi.htm" method="POST" id="form${chuyenXe.maChuyen }">
+			</c:if>
+			<c:if test="${loaiVe.equals(\"motchieu\") }">
+				<form action = "site/step3.htm" method="POST" id="form${chuyenXe.maChuyen }">
+			</c:if>
+			</c:if>
 				<input type="hidden" name="chuyenXe" value="${chuyenXe.maChuyen }">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<c:if test="${loaiVe != null }">
