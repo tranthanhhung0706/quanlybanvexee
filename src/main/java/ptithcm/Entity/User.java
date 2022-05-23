@@ -56,6 +56,17 @@ public class User {
 	@OneToMany(fetch = FetchType.LAZY ,mappedBy = "idKhachHang")
 	private List<Ve_Xe> veXeList;
 	
+	@Column(name = "hinh_Anh")
+	private String hinhAnh;
+	
+	public String getHinhAnh() {
+		return hinhAnh;
+	}
+
+	public void setHinhAnh(String hinhAnh) {
+		this.hinhAnh = hinhAnh;
+	}
+
 	public void addAccount(Account account) {
 		idTaiKhoan = account;
 	}
