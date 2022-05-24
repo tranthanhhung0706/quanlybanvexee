@@ -40,7 +40,10 @@ public class UserController {
 	ServletContext context;
 	@Autowired
 	SessionFactory factory;
+	
+	
 	static User usertemp;
+	
 	static Account accounttemp;
 	
     @RequestMapping(value = "in_for/{userId}.htm",params = "btnid")
@@ -49,23 +52,12 @@ public class UserController {
     	usertemp=this.getuser(userId);
     	model.addAttribute("khach_hangs",list);
     	model.addAttribute("khach_hang",list);
-//    	//Path path = new File(list.getHinhAnh().ge;
-//    	String path = Path.
-//    	try {
-//			photo.transferTo(new ));
-//		} catch (IllegalStateException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+    	
     	String fullPath = list.getHinhAnh();
     	int index = fullPath.lastIndexOf("\\");
-    	String fileName = fullPath.substring(index + 1);
-    	
+    	String fileName = fullPath.substring(index + 1);  	
     	model.addAttribute("photo_name", fileName);
-    	model.addAttribute("photo_name", fileName);
+    
     	System.out.println(list);
     	return "site/user/userInfo";
     
@@ -77,8 +69,7 @@ public class UserController {
     	if(khach_hang.getHoTen().trim().equals("") ) {
 			errors.rejectValue("hoTen", "khach_hang", "Vui lòng nhập họ và tên !");
 		}
-    	
-        
+
     	
     	if(khach_hang.getEmail().trim().equals("")) {
 			errors.rejectValue("email", "khach_hang", "Vui lòng nhập email !");
@@ -100,10 +91,10 @@ public class UserController {
     	
     	try {
     		
-    		String photoPath=context.getRealPath(photo.getOriginalFilename());
-    		khach_hang.setHinhAnh(photoPath);
-    		System.out.print("danhjvhvjhhhhhhhhhhhhhhhhhhh" + photoPath);
+    		String photoPath=context.getRealPath(photo.getOriginalFilename() ) ;
+    		photo.transferTo(new File(photoPath));
     		
+    		khach_hang.setHinhAnh(photoPath);
     		khach_hang.setPhoneNumber(usertemp.getPhoneNumber());
     		khach_hang.setDiaChi(usertemp.getDiaChi());
     		khach_hang.setIdTaiKhoan(usertemp.getIdTaiKhoan());
@@ -120,16 +111,23 @@ public class UserController {
 		}
     	
     	User user =this.getuser(khach_hang.getUserId());
-    	try {
-			photo.transferTo(new File(user.getHinhAnh()));
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	model.addAttribute("photo_name", photo.getOriginalFilename());
+    	
+    	
+    	String fullPath = user.getHinhAnh();
+    	int index = fullPath.lastIndexOf("\\");
+    	String fileName = fullPath.substring(index + 1);
+    	
+    	model.addAttribute("photo_name", fileName);
+//    	try {
+//			photo.transferTo(new File(user.getHinhAnh()));
+//		} catch (IllegalStateException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	model.addAttribute("photo_name", photo.getOriginalFilename());
     	
     	
     	model.addAttribute("khach_hangs",this.getuser(khach_hang.getUserId()));
