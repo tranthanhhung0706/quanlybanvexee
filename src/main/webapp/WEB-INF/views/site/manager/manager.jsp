@@ -16,19 +16,16 @@
 <script src="https://kit.fontawesome.com/d6bdcb3119.js"
 	crossorigin="anonymous"
 ></script>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/style.css"
->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/css/custom_bootstrap.css"
->
+
+<link rel="stylesheet" href="<c:url value='/resources/css/style.css' />" />
+<link rel="stylesheet" href="<c:url value='/resources/css/custom_bootstrap.css' />" />
 <title>Manager</title>
 </head>
 <body class="ml-20vw px-4">
 	<!-- Menu -->
 	<div class="menu pt-3 px-4 d-flex flex-column gap-3">
 		<a
-			href="${pageContext.request.contextPath }/quanly/?isShowList=true"
+			href="${pageContext.request.contextPath }/quanly/.htm?isShowList=true"
 			class="item"
 		>
 			<i class="fas fa-users"></i>
@@ -47,28 +44,25 @@
 			<ul class="list">
 				<li>
 					<a
-						href="${pageContext.request.contextPath }/quanly/?isQuanLyTuyenXe=true"
+						href="${pageContext.request.contextPath }/quanly/.htm?isQuanLyTuyenXe=true"
 					>Quản Lý Tuyến Xe</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath }/quanly/?isQuanLyDiaDiem=true">Quản Lý Địa Điểm</a>
+					<a href="${pageContext.request.contextPath }/quanly/.htm?isQuanLyDiaDiem=true">Quản Lý Địa Điểm</a>
 				</li>
 			</ul>
-			<form:form id="form2"
-				action="${pageContext.request.contextPath }/logout" method="POST"
-			>
+			
 				<button type="submit" class="dropdown-item" form="form2">
-					<i class="fas fa-sign-out-alt"></i>
-					Đăng xuất
-				</button>
-			</form:form>
+											<i class="fas fa-sign-out-alt"><a href="site/redirect.htm"><s:message code="header.dangxuat"/></a></i>
+			</button>
+		
 		</div>
 	</div>
 	<!-- -------------------------------------- QUẢN LÝ NHÂN VIÊN -------------------------------------- -->
 	<c:if test="${param.isShowList }">
 		<div>
 			<h1 class="text-center">Quản Lý Nhân Viên</h1>
-			<a href="${pageContext.request.contextPath }/quanly/?isThemNV=true"
+			<a href="${pageContext.request.contextPath }/quanly/.htm?isThemNV=true"
 				class="d-inline-block btn btn-success btn--them-nv"
 			>Thêm Nhân Viên</a>
 			<table
@@ -92,7 +86,7 @@
 							<td style="padding-top: 15px">${nv.soDienThoai }</td>
 							<td style="padding-top: 15px">${nv.email }</td>
 							<td>
-								<form:form action="xoaNV" method="POST"
+								<form:form action="xoaNV.htm" method="POST"
 									onsubmit="return confirm('Bạn chắn chắc muốn xóa nhân viên có ID=${nv.idNhanVien }');"
 								>
 									<input type="hidden" name="idNV" value="${nv.idNhanVien }" />
@@ -129,7 +123,7 @@
 					<div>Số điện thoại đã có tài khoản.</div>
 				</div>
 			</c:if>
-			<form:form action="themNV" modelAttribute="nhanVien" method="POST"
+			<form:form action="themNV.htm" modelAttribute="nhanVien" method="POST"
 				cssClass="infoValidation" novalidate="true"
 			>
 				<div class="row my-5">
@@ -303,7 +297,7 @@
 			</c:if>
 			<div class="text-end">
 				<a
-					href="${pageContext.request.contextPath }/quanly/?isThemTuyenXe=true"
+					href="${pageContext.request.contextPath }/quanly/.htm?isThemTuyenXe=true"
 					class="d-inline-block btn btn-success"
 				>Thêm Tuyến Xe</a>
 			</div>
@@ -330,7 +324,7 @@
 							<div class="col-1 p-0  text-center border py-3">${tx.soKm }</div>
 							<div class="col-1 p-0  text-center border py-3">${tx.thoiGianTon }</div>
 							<div class="col p-0  text-center border py-3">
-								<form:form cssClass="d-inline-block" action="xuLyTuyenXe"
+								<form:form cssClass="d-inline-block" action="xuLyTuyenXe.htm"
 									method="POST"
 									onsubmit="return confirm('Bạn chắn chắc muốn chỉnh sửa tuyến xe có ID=${tx.idTuyen }');"
 								>
@@ -339,7 +333,7 @@
 										class="btn btn-info fw-bold"
 									>Update</button>
 								</form:form>
-								<form:form cssClass="d-inline-block" action="xuLyTuyenXe"
+								<form:form cssClass="d-inline-block" action="xuLyTuyenXe.htm"
 									method="POST"
 									onsubmit="return confirm('Bạn chắn chắc muốn xóa tuyến xe có ID=${tx.idTuyen }');"
 								>
@@ -405,7 +399,7 @@
 					<div>Điểm đi hoặc điểm đến không có trong dữ liệu.</div>
 				</div>
 			</c:if>
-			<form:form action="xuLyTuyenXe" modelAttribute="tuyenXe"
+			<form:form action="xuLyTuyenXe.htm" modelAttribute="tuyenXe"
 				method="POST" cssClass="infoValidation" novalidate="true"
 				onsubmit="return validateThemTuyenXeForm()"
 			>
@@ -571,7 +565,7 @@
 			
 			<div class="text-end">
 				<a
-					href="${pageContext.request.contextPath }/quanly/?isThemDiaDiem=true";
+					href="${pageContext.request.contextPath }/quanly/.htm?isThemDiaDiem=true";
 					class="d-inline-block btn btn-success"
 				>Thêm Địa Điểm</a>
 			</div>
@@ -590,7 +584,7 @@
 							</div>
 							
 							<div class="col p-0  text-center border py-3">
-								<form:form cssClass="d-inline-block" action="xuLyDiaDiem"
+								<form:form cssClass="d-inline-block" action="xuLyDiaDiem.htm"
 									method="POST"
 									onsubmit="return confirm('Bạn chắn chắc muốn chỉnh sửa địa điểm có ID=${place.idDiaDiem }');"
 								>
@@ -599,7 +593,7 @@
 										class="btn btn-info fw-bold"
 									>Update</button>
 								</form:form>
-								<form:form cssClass="d-inline-block" action="xuLyDiaDiem"
+								<form:form cssClass="d-inline-block" action="xuLyDiaDiem.htm"
 									method="POST"
 									onsubmit="return confirm('Bạn chắn chắc muốn xóa địa điểm có ID=${place.idDiaDiem }');"
 								>
@@ -645,7 +639,7 @@
 				</div>
 			</c:if>
 			
-			<form:form action="themDiaDiem" modelAttribute="diaDiem"
+			<form:form action="themDiaDiem.htm" modelAttribute="diaDiem"
 				method="POST" cssClass="infoValidation" novalidate="true"
 				onsubmit="return validateThemDiaDiemForm()"
 			>
@@ -713,7 +707,7 @@
 				</div>
 			</c:if>
 			
-			<form:form action="updateDiaDiem" modelAttribute="diaDiem"
+			<form:form action="updateDiaDiem.htm" modelAttribute="diaDiem"
 				method="POST" cssClass="infoValidation" novalidate="true"
 				onsubmit="return validateThemDiaDiemForm()"
 			>
@@ -750,16 +744,13 @@
 		</div>
 	</c:if>
 	<script type="text/javascript"
-		src="${pageContext.request.contextPath }/resources/js/my_script.js"
-	></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath }/resources/js/validator.js"
-	></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath }/resources/bootstrap/dist/js/jquery-3.6.0.slim.min.js"
-	></script>
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath }/resources/bootstrap/dist/js/bootstrap.min.js"
-	></script>
+	src="<c:url value='/resources/js/my_script.js' />"></script>
+    <script type="text/javascript"
+	src="<c:url value='/resources/js/validator.js' />"></script>
+     <script type="text/javascript"
+	src="<c:url value='/resources/js/jquery-3.6.0.slim.min.js' />"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+
 </body>
 </html>

@@ -35,9 +35,9 @@ public class CaptchaController {
 		BufferedImage biImage = new BufferedImage(iWidth, iHeight, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g2dImage = (Graphics2D) biImage.getGraphics();
 		int iCircle = 15;
-		for (int i = 0; i < iCircle; i++) {
+//		for (int i = 0; i < iCircle; i++) {
 			g2dImage.setColor(new Color(randChars.nextInt(255), randChars.nextInt(255), randChars.nextInt(255)));
-		}
+//		}
 		g2dImage.setFont(fntStyle1);
 		for (int i = 0; i < iTotalChars; i++) {
 			g2dImage.setColor(new Color(randChars.nextInt(255), randChars.nextInt(255), randChars.nextInt(255)));

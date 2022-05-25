@@ -139,14 +139,18 @@ public class AuthenticationController {
 					session.setAttribute("tai_khoans",
 							this.gettk(request.getParameter("username"), request.getParameter("password")));
 					System.out.println(accounttemp.getIdRole().getAuthority());
-					if (accounttemp.getIdRole().getAuthority().equals("ROLE_EMPLOYEE")) {
+					if(accounttemp.getIdRole().getAuthority().equals("ROLE_EMPLOYEE") ) {
 						System.out.println(1);
 						session.setAttribute("tk_nv", this.getnv(accounttemp.getAccountId()));
-
-					} else {
+						
+					}
+					else if(accounttemp.getIdRole().getAuthority().equals("ROLE_MANAGER")) {
+						session.setAttribute("tk_nv", this.getnv(accounttemp.getAccountId()));
+						return "redirect:/quanly/.htm?isShowList=true";
+					}
+					else {
 						System.out.println(0);
 						session.setAttribute("tk_kh", this.getuser(accounttemp.getAccountId()));
-
 					}
 //					session.setAttribute("tks", this.getuser(accounttemp.getAccountId()));
 //					System.out.println(this.getuser(accounttemp.getAccountId()));
@@ -191,6 +195,7 @@ public class AuthenticationController {
 		try {
 			mailer.send(from, to, subject, body);
 			model.addAttribute("message", "Code send!");
+			codeTemp=null;
 		} catch (Exception e) {
 			// TODO: handle exception
 			model.addAttribute("message", "Code send Failed");

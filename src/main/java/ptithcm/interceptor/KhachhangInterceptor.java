@@ -14,8 +14,16 @@ public class KhachhangInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		// TODO Auto-generated method stub
+		HttpSession ss = request.getSession();
+		if (ss.getAttribute("tk_kh") == null ) {
+			
+			response.sendRedirect(request.getContextPath() + "/site/index.htm");
+			return false;
+		}
+
 		
-		return super.preHandle(request, response, handler);
+		return true;
+		//return super.preHandle(request, response, handler);
 	}
 	
 	
@@ -23,14 +31,8 @@ public class KhachhangInterceptor extends HandlerInterceptorAdapter{
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
-		HttpSession ss = request.getSession();
-		if (ss.getAttribute("tk_kh") == null ) { // thay asd bang attribute dang nhap, neu dang nhap null thi ve trang dang nhap
-			response.sendRedirect(request.getContextPath() + "/index.htm");
-			return ;
-		}
 		
-		return ;
-		//super.postHandle(request, response, handler, modelAndView);
+		super.postHandle(request, response, handler, modelAndView);
 		
 	}
 	

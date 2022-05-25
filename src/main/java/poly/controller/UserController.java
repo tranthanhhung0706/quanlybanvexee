@@ -3,6 +3,7 @@ package poly.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -27,7 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import ptithcm.Entity.Account;
+import ptithcm.Entity.Chuyen_Xe;
 import ptithcm.Entity.Nhan_Vien;
+import ptithcm.Entity.Tuyen_Xe;
 import ptithcm.Entity.User;
 import ptithcm.Entity.Ve_Xe;
 
@@ -46,6 +49,8 @@ public class UserController {
 	
 	static Account accounttemp;
 	
+	List<Tuyen_Xe> chonTuyenXe;
+	
     @RequestMapping(value = "in_for/{userId}.htm",params = "btnid")
     public String infor(ModelMap model,@PathVariable("userId") Integer userId){
     	User list=this.getuser(userId);
@@ -53,18 +58,20 @@ public class UserController {
     	model.addAttribute("khach_hangs",list);
     	model.addAttribute("khach_hang",list);
     	
-    	if (list.getHinhAnh() != null) {
-    	String fullPath = list.getHinhAnh();
-    	int index = fullPath.lastIndexOf("\\");
-    	String fileName = fullPath.substring(index + 1);  	
+//    	if (list.getHinhAnh() != null) {
+//    	String fullPath = list.getHinhAnh();
+//    	int index = fullPath.lastIndexOf("\\");
+//    	String fileName = fullPath.substring(index + 1);  	
+//    	model.addAttribute("photo_name", fileName);
+//    	}
+    	String fileName = list.getHinhAnh();
     	model.addAttribute("photo_name", fileName);
-    	}
     	System.out.println(list);
     	return "site/user/userInfo";
     
     }
     @RequestMapping(value = "update",params = "btnEdit")
-    public String update(ModelMap model, @Validated @ModelAttribute("khach_hang") User khach_hang, BindingResult errors, @RequestParam("hinhAnh2") MultipartFile photo ) {
+    public String update(ModelMap model, @Validated @ModelAttribute("khach_hang") User khach_hang, BindingResult errors,@RequestParam("hinhAnh2") MultipartFile photo ) {
     	
     	//,@RequestParam("hinhAnh") MultipartFile photo
     	if(khach_hang.getHoTen().trim().equals("") ) {
@@ -94,17 +101,30 @@ public class UserController {
 		khach_hang.setDiaChi(usertemp.getDiaChi());
 		khach_hang.setIdTaiKhoan(usertemp.getIdTaiKhoan());
 		
-		try {
-			String photoPath=context.getRealPath(photo.getOriginalFilename() ) ;
-    		photo.transferTo(new File(photoPath));
-    		khach_hang.setHinhAnh(photoPath);
-		}catch (Exception e) {
-			User user2 =this.getuser(khach_hang.getUserId());
-    		khach_hang.setHinhAnh(user2.getHinhAnh());
-
-		}
+//		try {
+//			System.out.println("============"+ photo.getOriginalFilename());
+//			String photoPath=context.getRealPath(photo.getOriginalFilename() ) ;
+//			System.out.println("============"+ photo.getOriginalFilename());
+//    		photo.transferTo(new File(photoPath));
+//    		khach_hang.setHinhAnh(photo.getOriginalFilename());
+//		}catch (Exception e) {
+//			User user2 =this.getuser(khach_hang.getUserId());
+//    		khach_hang.setHinhAnh(user2.getHinhAnh());
+//
+//		}
+		
     	
     	try {
+    		
+    		User user2 =this.getuser(khach_hang.getUserId());
+    		if(photo.getOriginalFilename().equals(""))  khach_hang.setHinhAnh(user2.getHinhAnh());
+    		else
+    		{
+    			String photoPath=context.getRealPath(photo.getOriginalFilename()) ;
+        		photo.transferTo(new File(photoPath));
+        		khach_hang.setHinhAnh(photo.getOriginalFilename());
+    		}
+    		
     		
 
 			Integer check=this.updatekh(khach_hang);
@@ -113,15 +133,16 @@ public class UserController {
 			}else {
 				model.addAttribute("message","update that bai");
 			}
-			
+//			
 			User user =this.getuser(khach_hang.getUserId());
-	    	
-	    	
-	    	String fullPath = user.getHinhAnh();
-	    	int index = fullPath.lastIndexOf("\\");
-	    	String fileName = fullPath.substring(index + 1);
-	    	
-	    	model.addAttribute("photo_name", fileName);    	
+//	    	
+//	    	
+//	    	String fullPath = user.getHinhAnh();
+//	    	System.out.println("============"+ fullPath);
+//	    	int index = fullPath.lastIndexOf("\\");
+//	    	String fileName = fullPath.substring(index + 1);
+//	    	
+	    	model.addAttribute("photo_name", user.getHinhAnh());    	
 	    	model.addAttribute("khach_hangs",this.getuser(khach_hang.getUserId()));
 	    	model.addAttribute("khach_hang",this.getuser(khach_hang.getUserId()));
 			
@@ -140,8 +161,20 @@ public class UserController {
     @RequestMapping(value = "userbookedticket/{userId}.htm",params = "btnid1")
     public String userbook(ModelMap model,@PathVariable("userId") Integer userId) {
     	List<Ve_Xe> list=this.getve(userId);
+    	usertemp=this.getuser(userId);
     	System.out.println(list);
     	model.addAttribute("listve",list);
+    	
+    	chonTuyenXe = new ArrayList<Tuyen_Xe>();
+    	for (Ve_Xe  veXe: list)
+    	{
+    		Tuyen_Xe temp = veXe.getIdChuyenXe().getMaTuyen();
+    		if (!chonTuyenXe.contains(temp)) {
+    			chonTuyenXe.add(temp);
+    		}
+    	}
+    	model.addAttribute("tuyenxe",chonTuyenXe);
+    	
     	return "site/user/userBookedTickets";
     }
     
@@ -176,6 +209,33 @@ public class UserController {
     }
     
    
+    @RequestMapping(value = "showlistve",params = "tim")
+    public String timkiem(ModelMap model,@RequestParam(value= "maVeInput", required = false ) Integer mave
+    		,@RequestParam(value= "tuyenDuongInput", required = false ) String tuyenDuongInput) {
+    	
+    	//Ve_Xe list=this.getve1(mave);
+//    	if (mave.equals("") && tuyenDuongInput.equals("default"))
+//    	{
+//    		model.addAttribute("listve",usertemp.getUserId());
+//    		return "site/user/userBookedTickets"; 
+//    	}
+    		
+
+    	List<Ve_Xe> list = this.getVeXe(mave, tuyenDuongInput, usertemp.getUserId());
+    	System.out.println(list);
+    	model.addAttribute("listve",list);
+    	model.addAttribute("tuyenxe",chonTuyenXe);
+    	return "site/user/userBookedTickets";
+    }
+    @RequestMapping(value = "showlistve",params = "lammoi")
+    public String lamMoi(ModelMap model) {
+    	List<Ve_Xe> list=this.getve(usertemp.getUserId());
+    	model.addAttribute("listve",list);  
+    	model.addAttribute("tuyenxe",chonTuyenXe);
+    	
+    	return "site/user/userBookedTickets";
+    }
+    
     @RequestMapping("timkiem")
     public String timkiem(ModelMap model,@RequestParam("maVeInput") Integer mave) {
     	Ve_Xe list=this.getve1(mave);
@@ -279,6 +339,36 @@ public class UserController {
 			session.close();
 		}
    	 return 1;
+    }
+    
+    public List<Ve_Xe> getVeXe(Integer idve, String tuyenDuongInput, int idKhachHang) 
+    {
+    	String[] tuyenDuongArr = tuyenDuongInput.split(",");
+    	List<Ve_Xe> listVeXe = new ArrayList<Ve_Xe>();
+    	Session session=factory.getCurrentSession();
+    	if(idve!=null)
+    	{
+    		listVeXe.add((Ve_Xe) session.get(Ve_Xe.class, idve));
+    		return listVeXe;
+    	}
+    	else
+    	{
+    		Query query = session.createQuery("from Tuyen_Xe where diaDiemDi.idDiaDiem=:diaDiemDi and diaDiemDen.idDiaDiem=:diaDiemDen ");
+        	query.setParameter("diaDiemDi", Integer.parseInt(tuyenDuongArr[0]) );
+        	query.setParameter("diaDiemDen", Integer.parseInt(tuyenDuongArr[1]) );
+        	Tuyen_Xe tuyenXe = (Tuyen_Xe) query.list().get(0);
+        	
+        	for(Chuyen_Xe chuyenXe : tuyenXe.getChuyenXeList()) {
+        		for (Ve_Xe veXe : chuyenXe.getVeXeList()) {
+        			if(veXe.getIdKhachHang().getUserId()== idKhachHang)
+        			{
+        				listVeXe.add(veXe);
+        			}
+        		}
+        	}
+    	}
+    	
+    	return listVeXe;
     }
  
 
