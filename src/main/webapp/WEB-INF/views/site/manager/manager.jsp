@@ -51,11 +51,14 @@
 					<a href="${pageContext.request.contextPath }/quanly/.htm?isQuanLyDiaDiem=true">Quản Lý Địa Điểm</a>
 				</li>
 			</ul>
-			
+			<form:form id="form2"
+				action="${pageContext.request.contextPath }/logout" method="POST"
+			>
 				<button type="submit" class="dropdown-item" form="form2">
-											<i class="fas fa-sign-out-alt"><a href="site/redirect.htm"><s:message code="header.dangxuat"/></a></i>
-			</button>
-		
+					<i class="fas fa-sign-out-alt"></i>
+					Đăng xuất
+				</button>
+			</form:form>
 		</div>
 	</div>
 	<!-- -------------------------------------- QUẢN LÝ NHÂN VIÊN -------------------------------------- -->

@@ -30,7 +30,7 @@ public class Account {
 	@Column(name = "enabled")
 	private int accountState;
 	
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_role")
 	private Role idRole;
     
@@ -50,7 +50,10 @@ public class Account {
 		this.password = password;
 		this.accountState = accountState;
 	}
-
+	public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 	public int getAccountId() {
 		return accountId;
 	}

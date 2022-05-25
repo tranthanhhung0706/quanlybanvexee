@@ -392,9 +392,7 @@ public class ManagerController {
             model.addAttribute("diaDiemTonTaiTuyen", true);
             return "redirect:/quanly/.htm?isQuanLyDiaDiem=true";
         }
-        
         this.delete(diaDiem);
-        
         model.addAttribute("xoaDiaDiem", true);
         return "redirect:/quanly/.htm?isQuanLyDiaDiem=true";
     }

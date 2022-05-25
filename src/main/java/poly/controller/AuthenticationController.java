@@ -145,7 +145,7 @@ public class AuthenticationController {
 						
 					}
 					else if(accounttemp.getIdRole().getAuthority().equals("ROLE_MANAGER")) {
-						session.setAttribute("tk_nv", this.getnv(accounttemp.getAccountId()));
+						session.setAttribute("tk_ad", this.getnv(accounttemp.getAccountId()));
 						return "redirect:/quanly/.htm?isShowList=true";
 					}
 					else {
