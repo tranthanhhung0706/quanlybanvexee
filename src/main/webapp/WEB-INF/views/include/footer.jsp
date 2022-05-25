@@ -78,17 +78,18 @@
 	src="<c:url value='/resources/js/jquery-3.6.0.slim.min.js' />"></script>
 <script type="text/javascript"
 	src="<c:url value='/resources/js/bootstrap.min.js' />"></script>
-<script>
-	
-</script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <c:url value="/resources/js/my_script.js" var="myUrl" />
-<script type="text/javascript" src="${myUrl}" />
+<script type="text/javascript" src="${myUrl}" ></script>
 <!-- comment -->
-</script>
 <c:url value="/resources/js/validator.js" var="myUrl1" />
-<script type="text/javascript" src="${myUrl1}" />
+<script type="text/javascript" src="${myUrl1}" ></script>
 <!-- comment -->
-</script>
+<c:url value="/resources/js/my_script2.js" var="myUrl2" />
+<script type="text/javascript" src="${myUrl2}" ></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>

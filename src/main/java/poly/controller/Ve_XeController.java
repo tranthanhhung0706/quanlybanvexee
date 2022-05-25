@@ -82,12 +82,12 @@ public class Ve_XeController {
 			for (Ve_Xe veXe : veXeList) {
 				if (!veXe.getTrangThai().equals("Đã hủy")) {
 					System.err.println(veXe.getTrangThai());
-					List<Ghe> gheList = veXe.getGheList(); // đây là list các ghế đã đặt tương ứng với mỗi vé
+					List<Ghe> gheList = veXe.getGheList(); // Ä‘Ã¢y lÃ  list cÃ¡c gháº¿ Ä‘Ã£ Ä‘áº·t tÆ°Æ¡ng á»©ng vá»›i má»—i vÃ©
 					listCacGheDaDatTuongUngVoiMoiChuyenXe.addAll(gheList);
 				}
 			}
 			hashMapChuaListCacGheDaDatTuongUngVoiMoiChuyenXe.put(chuyenXe.getMaChuyen(),
-					listCacGheDaDatTuongUngVoiMoiChuyenXe); // Xử lí số chỗ còn lại của mỗi chuyến xe
+					listCacGheDaDatTuongUngVoiMoiChuyenXe); // Xá»­ lÃ­ sá»‘ chá»— cÃ²n láº¡i cá»§a má»—i chuyáº¿n xe
 		}
 
 		model.addAttribute("hashMapChuaListCacGheDaDatTuongUngVoiMoiChuyenXe",
@@ -273,17 +273,18 @@ public class Ve_XeController {
    public String step3(ModelMap model,@PathVariable("userId") Integer userId,@RequestParam("chuyenXe") int idChuyenXe,
 			@RequestParam("gheCheckBox") List<Ghe> gheList,HttpServletRequest request) {
 	   String loaiVe = (String) request.getSession().getAttribute("loaiVe");
-		// -> Nếu loại vé là một chiều thì vé bên dưới là vé thứ nhất
-		// ->nếu loại vé là khứ hồi thì vé này là vé thứ về, vé đi có tên là
+		// -> Náº¿u loáº¡i vÃ© lÃ  má»™t chiá»�u thÃ¬ vÃ© bÃªn dÆ°á»›i lÃ  vÃ© thá»© nháº¥t
+		// ->náº¿u loáº¡i vÃ© lÃ  khá»© há»“i thÃ¬ vÃ© nÃ y lÃ  vÃ© thá»© vá»�, vÃ© Ä‘i cÃ³ tÃªn lÃ 
 		// veXeChinhThuc1 or veXeTam1 trong session
 		// Để cho đỡ rối thì nên lặp code 1 tí
+
 		if (loaiVe.equals("motchieu")) {
 			Ve_Xe ve = new Ve_Xe();
 
-			// khúc này là xác minh xem người hiện tại đang đặt vé là người dùng hay nhân
-			// viên
-			// Nếu là người dùng đã đăng kí rồi thì không cần lưu người dùng vào db vì đã có
-			// sẵn
+			// khÃºc nÃ y lÃ  xÃ¡c minh xem ngÆ°á»�i hiá»‡n táº¡i Ä‘ang Ä‘áº·t vÃ© lÃ  ngÆ°á»�i dÃ¹ng hay nhÃ¢n
+			// viÃªn
+			// Náº¿u lÃ  ngÆ°á»�i dÃ¹ng Ä‘Ã£ Ä‘Äƒng kÃ­ rá»“i thÃ¬ khÃ´ng cáº§n lÆ°u ngÆ°á»�i dÃ¹ng vÃ o db vÃ¬ Ä‘Ã£ cÃ³
+			// sáºµn
 			
 //			if (request.isUserInRole("ROLE_USER")) {
 //				User tempUser = (User) request.getSession().getAttribute("user");
@@ -305,20 +306,19 @@ public class Ve_XeController {
 				request.getSession().setAttribute("veXeTam", ve);
 			}
 		}
-		// này nếu loại vé là khứ hồi
+		// nÃ y náº¿u loáº¡i vÃ© lÃ  khá»© há»“i
 		else {
 			Ve_Xe veThuHai = new Ve_Xe();
-
 			// khúc này là xác minh xem người hiện tại đang đặt vé là người dùng hay nhân
 			// viên
 			// Nếu là người dùng đã đăng kí rồi thì không cần lưu người dùng vào db vì đã có
 			// sẵn
-			
+
 			User tempUser=this.getkh(userId);
 			if (tempUser.getIdTaiKhoan().getIdRole().getAuthority().equals("ROLE_USER")) {
 //				User tempUser = (User) request.getSession().getAttribute("user");
 				veThuHai.setIdKhachHang(tempUser);
-				// lấy vé thứ nhất ra setIdKhachHang
+				// láº¥y vÃ© thá»© nháº¥t ra setIdKhachHang
 				Ve_Xe veThuNhat = (Ve_Xe) request.getSession().getAttribute("veXeChinhThuc1");
 				veThuNhat.setIdKhachHang(tempUser);
 				request.getSession().setAttribute("veXeChinhThuc1", veThuNhat);
@@ -544,18 +544,18 @@ public class Ve_XeController {
    @RequestMapping(value = "userBookedTickets/{userId}.htm",method = RequestMethod.POST)
    public String luuVePage(@RequestParam("hinhThucThanhToan") String hinhThuc, HttpServletRequest request,ModelMap model,@PathVariable("userId") Integer userId) {
 		
-		/////////////// Nếu là vé 1 chiều
+		/////////////// Náº¿u lÃ  vÃ© 1 chiá»�u
 		String loaiVe = (String) request.getSession().getAttribute("loaiVe");
 		if (loaiVe.equals("motchieu")) {
 			Ve_Xe veXe = (Ve_Xe)request.getSession().getAttribute("veXeChinhThuc");
 			// set hinh thuc thanh toan
 			veXe.setHinhThucThanhToan(hinhThuc);
-			// set ngay luu ve để lưu vào cơ sở dữ liệu
+			// set ngay luu ve Ä‘á»ƒ lÆ°u vÃ o cÆ¡ sá»Ÿ dá»¯ liá»‡u
 			LocalDateTime dateObj = LocalDateTime.now();
 			DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String formatedDate = dateObj.format(formatObj);
 			veXe.setNgayLap(formatedDate);
-			veXe.setTrangThai("Chờ thanh toán");
+			veXe.setTrangThai("Chá»� thanh toÃ¡n");
 //			veXeService.luuVe(veXe);
 			Integer check=this.saveve(veXe);
 			if(check==1) {
@@ -567,20 +567,20 @@ public class Ve_XeController {
 			request.getSession().removeAttribute("veXeChinhThuc");
 			request.getSession().removeAttribute("loaiVe");
 			
-		} else {	//////////// Nếu là vé khứ hồi
+		} else {
 			Ve_Xe veXeThu1 = (Ve_Xe)request.getSession().getAttribute("veXeChinhThuc1");
 			Ve_Xe veXeThu2 = (Ve_Xe)request.getSession().getAttribute("veXeChinhThuc");
 			// set hinh thuc thanh toan
 			veXeThu1.setHinhThucThanhToan(hinhThuc);
 			veXeThu2.setHinhThucThanhToan(hinhThuc);
-			// set ngay luu ve để lưu vào cơ sở dữ liệu
+			// set ngay luu ve Ä‘á»ƒ lÆ°u vÃ o cÆ¡ sá»Ÿ dá»¯ liá»‡u
 			LocalDateTime dateObj = LocalDateTime.now();
 			DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String formatedDate = dateObj.format(formatObj);
 			veXeThu1.setNgayLap(formatedDate);
 			veXeThu2.setNgayLap(formatedDate);
-			veXeThu1.setTrangThai("Chờ thanh toán");
-			veXeThu2.setTrangThai("Chờ thanh toán");
+			veXeThu1.setTrangThai("Chá»� thanh toÃ¡n");
+			veXeThu2.setTrangThai("Chá»� thanh toÃ¡n");
 //			veXeService.luuVe(veXeThu1);
 //			veXeService.luuVe(veXeThu2);
 			Integer check1=this.saveve(veXeThu1);
