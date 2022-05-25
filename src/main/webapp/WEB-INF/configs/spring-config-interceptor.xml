@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	   		http://www.springframework.org/schema/beans/spring-beans.xsd
+	   		http://www.springframework.org/schema/context
+	   		http://www.springframework.org/schema/context/spring-context.xsd
+	   		http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- Cấu hình interceptor --> 
+	<mvc:interceptors>  
+		<!-- Lọc tất cả các URL 
+		<bean class="ptithcm.interceptor.LoggerInterceptor" />
+		
+		 Chỉ lọc các URL theo path
+		<mvc:interceptor>
+			<mvc:mapping path="/home/**"/>
+			<mvc:exclude-mapping path="/home/index.htm"/>
+			<bean class="poly.interceptor.LoggerInterceptor" />
+		</mvc:interceptor>
+		 -->
+		 <mvc:interceptor>
+			<mvc:mapping path="/site/**"/>
+			<mvc:mapping path="/site/chuyen_xe_hoan_thanh.htm"/>
+			<mvc:exclude-mapping path="/site/index.htm"/>
+			<mvc:exclude-mapping path="/site/login.htm"/>
+			<mvc:exclude-mapping path="/site/login1.htm"/>
+			<mvc:exclude-mapping path="/site/register.htm"/>
+			<mvc:exclude-mapping path="/site/datve/**"/>
+			<mvc:exclude-mapping path="/site/index.htm"/>
+			<mvc:exclude-mapping path="/site/sign_in.htm"/>
+			<mvc:exclude-mapping path="/site/forgotPassword.htm"/>
+			<mvc:exclude-mapping path="/site/register.htm"/>
+			<mvc:exclude-mapping path="/site/sign_up.htm"/>
+			<mvc:exclude-mapping path="/site/redirect.htm"/>
+			<bean class="ptithcm.interceptor.LoggerInterceptor" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/site/**"/>
+			<mvc:exclude-mapping path="/site/user/**"/>
+			<mvc:exclude-mapping path="/site/timkiem.htm"/>
+			<mvc:exclude-mapping path="/site/update.htm"/>
+			<mvc:exclude-mapping path="/site/changepassword.htm"/>
+			<mvc:exclude-mapping path="/site/changepassword/**"/>
+			<mvc:exclude-mapping path="/site/userbookedticket/**"/>
+			<mvc:exclude-mapping path="/site/datve/**"/>
+			<mvc:exclude-mapping path="/site/index.htm"/>
+			<mvc:exclude-mapping path="/site/sign_in.htm"/>
+			<mvc:exclude-mapping path="/site/forgotPassword.htm"/>
+			<mvc:exclude-mapping path="/site/register.htm"/>
+			<mvc:exclude-mapping path="/site/sign_up.htm"/>
+			<mvc:exclude-mapping path="/site/redirect.htm"/>
+			<mvc:exclude-mapping path="/site/chitiet/**"/>
+			<mvc:exclude-mapping path="/site/huyve/**"/>
+			<mvc:exclude-mapping path="/site/in_for/**"/>
+			<bean class="ptithcm.interceptor.KhachhangInterceptor" />
+		</mvc:interceptor>
+		
+		  <mvc:interceptor>
+			
+			<mvc:mapping path="/site/nghiepvu.htm"/>
+			<mvc:exclude-mapping path="/site/asd/**"/>
+			
+			<bean class="ptithcm.interceptor.NhanvienInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+</beans>
