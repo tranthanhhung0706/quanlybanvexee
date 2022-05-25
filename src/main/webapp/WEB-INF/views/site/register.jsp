@@ -18,7 +18,7 @@
 			<div class="mb-3">
 
 				<label for="nameInput" class="form-label"><s:message code="login.hoten"/> *</label>
-				<input type="text" class="form-control" name="name"
+				<input type="text" class="form-control" name="name" value="${name}" oninput="inputHandler('hte')"
 
 						/>
 					<br />
@@ -27,14 +27,14 @@
 			<div class="mb-3">
 
 				<label for="nameInput" class="form-label"><s:message code="login.sdt.title"/> *</label>
-				<input type="text" class="form-control" name="sdt"/>
+				<input type="text" class="form-control" name="sdt"  value="${sdt}"  oninput="inputHandler('sdte')"/>
 
 					<br />
 					<div style="color: red; margin-top: -20px" id="sdte" >${sdterror }</div>
 			</div>
 			<div class="mb-3">
 				<label for="nameInput" class="form-label">Email *</label>
-				<input type="text" class="form-control" name="email" oninput="inputHandler('merr')"  value="${email }"
+				<input type="text" class="form-control" name="email" oninput="inputHandler('merr')"  value="${email }"  oninput="inputHandler('merr')"
 						/>
 					<br />
 					<div style="color: red; margin-top: -20px" id="merr" >${mailerror }</div>
@@ -42,7 +42,7 @@
 			<div class="mb-3">
 
 				<label for="nameInput" class="form-label"><s:message code="login.cmnd"/></label>
-				<input type="text" class="form-control" name="cmnd"
+				<input type="text" class="form-control" name="cmnd" value="${cmnd}"  oninput="inputHandler('cmerr')"
 
 						/>
 					<br />
@@ -51,7 +51,7 @@
 			<div class="mb-3">
 
 				<label for="nameInput" class="form-label"><s:message code="login.diachi"/></label>
-				<input type="text" class="form-control" name="diachi"
+				<input type="text" class="form-control" name="diachi"  value="${diachi}"  
 
 						/>
 					<br />
@@ -69,7 +69,7 @@
 			<div class="mb-3">
 
 				<label for="nameInput" class="form-label"><s:message code="login.ngaysinh"/></label>
-				<input type="text" class="form-control" name="ngaysinh"
+				<input type="date" class="form-control" name="ngaysinh"   value="${ngaysinh}"
 
 						/>
 					<br />
@@ -77,7 +77,7 @@
 			<div class="mb-3">
 
 				<label for="nameInput" class="form-label"><s:message code="login.nghenghiep"/></label>
-				<input type="text" class="form-control" name="nghenghiep"
+				<input type="text" class="form-control" name="nghenghiep"  value="${nghenghiep}"
 
 						/>
 
@@ -86,7 +86,7 @@
 			<div class="mb-3">
 
 				<label for="passwordInput" class="form-label"><s:message code="login.matkhau.title"/> *</label>
-					<form:input type="password" class="form-control" id="passwordInput" path="password"
+					<form:input type="password" class="form-control" id="passwordInput" path="password"  oninput="inputHandler('passe')"
 
 						/>
 					<br />

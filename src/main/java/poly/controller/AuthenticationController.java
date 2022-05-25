@@ -184,7 +184,19 @@ public class AuthenticationController {
 	static String codeTemp;
 
 	@RequestMapping(value = "forgotPassword", params = "sendcode")
-	public String send(ModelMap model, @ModelAttribute("khach_hang") Account kh, HttpServletRequest request) {
+	public String send(ModelMap model, @ModelAttribute("khach_hang") Account kh, HttpServletRequest request
+			,@RequestParam("email") String email) {
+		model.addAttribute("ipEmail", email);
+		User ust= getuser(kh.getUsername());
+		if(ust == null) {
+			model.addAttribute("message", "Khong tim thay tai khoan");
+			return  "site/user/forgotpassword";
+		}
+		if(!ust.getEmail().equals(request.getParameter("email"))) {
+			model.addAttribute("message", "Email khong phai cua tai khoan nay");
+			return  "site/user/forgotpassword";
+		}
+		
 		String to = request.getParameter("email");
 		String from = "VE";
 		String subject = "Validation code";
@@ -195,14 +207,23 @@ public class AuthenticationController {
 		try {
 			mailer.send(from, to, subject, body);
 			model.addAttribute("message", "Code send!");
-			codeTemp=null;
 		} catch (Exception e) {
 			// TODO: handle exception
 			model.addAttribute("message", "Code send Failed");
 		}
 		return "site/user/forgotpassword";
 	}
-
+	public User getuser(String username) {
+		Session session = factory.getCurrentSession();
+		String hql = "from User where phoneNumber =:username";
+		Query query = session.createQuery(hql);
+		query.setParameter("username", username);
+		List<User> list= query.list();
+		if(list.size()>0) {
+			User u = (User) query.list().get(0);
+			return u;
+		}else return null;
+	}
 	@RequestMapping("forgotPassword")
 	public String forgot(ModelMap model, @ModelAttribute("khach_hang") Account kh) {
 		return "site/user/forgotpassword";
@@ -221,7 +242,7 @@ public class AuthenticationController {
 	public String forgot(ModelMap model, @ModelAttribute("khach_hang") Account kh,
 			@RequestParam("confirm") String password, @RequestParam("email") String email,
 			@RequestParam("code") String code, @ModelAttribute("username") String username) {
-
+		model.addAttribute("ipEmail", email);
 		if (kh.getUsername() == "") {
 			model.addAttribute("message", "vui long nhap username");
 		} else if (email == "") {
@@ -239,6 +260,7 @@ public class AuthenticationController {
 						Integer check = this.updatetk(kh);
 						if (check == 1) {
 							model.addAttribute("message", "thay doi thanh cong");
+							codeTemp= null;
 						} else {
 							model.addAttribute("message", "thay doi that bai");
 						}
@@ -279,7 +301,7 @@ public class AuthenticationController {
 			@RequestParam("email") String email, @RequestParam("nghenghiep") String nghenghiep,
 			@RequestParam("cmnd") String cmnd, @RequestParam("ngaysinh") String ngaysinh,
 			@RequestParam("sdt") String sdt, @RequestParam("diachi") String diachi, BindingResult errors) {
-		model.addAttribute("hoten", name);
+		model.addAttribute("name", name);
 		model.addAttribute("sdt", sdt);
 		model.addAttribute("nghenghiep", nghenghiep);
 		model.addAttribute("cmnd", cmnd);

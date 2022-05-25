@@ -48,4 +48,12 @@ swal1({
 			  button: "Aww yiss!",
 });
 
-//hte.addEventListener('proper')
+function checkpass(){
+	const pass1= document.getElementById(fgpass1)
+	const pass2= document.getElementById(fgpass2)
+	const mess= document.getElementById(messcfpass)
+	if(pass1!=pass2) {
+		mess.innerText="Mat khau nhap lai khong dung";
+		return false;
+	}
+}

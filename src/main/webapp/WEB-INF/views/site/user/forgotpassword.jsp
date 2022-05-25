@@ -11,7 +11,7 @@
               </ul>
               <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="videoEditing" role="tabpanel" aria-labelledby="videoEditing-tab">
-              <form:form action="site/forgotPassword.htm"  method="post" modelAttribute="khach_hang">
+              <form:form action="site/forgotPassword.htm"  method="post" modelAttribute="khach_hang" onsubmit="checkpass()">
                       <div class="card">
                           <div class="card-header">
                               Forgot password
@@ -26,7 +26,7 @@
                                       <div>
                                       <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email"  placeholder="Email"/>
+                                        <input type="email" class="form-control" name="email"  placeholder="Email" value="${ipEmail}"/>
                                       </div>
                                       <button class="btn btn-md btn-black" type="submit"
 												id="form-submit" name="sendcode">Send Code</button>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&nbsp;&nbsp;
@@ -37,18 +37,19 @@
                                    <div class="col">
                                       <div class="form-group">
                                         <label for="password">Password</label>
-                                        <form:input type="password" class="form-control" path="password" aria-describedby="usernameHid" placeholder="Username"/>
+                                        <form:input type="password" class="form-control" path="password" aria-describedby="usernameHid" placeholder="Username" id="fgpass1"/>
                                       </div>
                                       <div class="form-group">
                                         <label for="confirm">Confirm Password</label>
-                                        <input type="password" class="form-control" name="confirm"  placeholder="Password"/>
+                                        <input type="password" class="form-control" name="confirm"  placeholder="Password"  id="fgpass2"  oninput="inputHandler(messcfpass)"/>
+                                        <div id="messcfpass"></div>
                                       </div>
                                    
 												
                                   </div>
                               </div>
                           </div>
-                          <div style="color: green;">${message }</div>
+                          <div style="color: red;">${message }</div>
                            <div class="card-footer text-muted">
                               <button class="btn btn-success" type="submit" name="change">Retrive</button>
                           </div>
