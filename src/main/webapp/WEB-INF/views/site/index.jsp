@@ -21,12 +21,12 @@
 					<div class="form-check d-inline-block ms-3">
 						<input type="radio" value="motchieu" name="loaive"
 							class="form-check-input" id="motchieu"> <label
-							class="form-check-label fw-bold" for="motchieu">Một Chiều</label>
+							class="form-check-label fw-bold" for="motchieu"><s:message code="index.motchieu"/></label>
 					</div>
 					<div class="form-check d-inline-block ms-3">
 						<input type="radio" value="khuhoi" name="loaive"
 							class="form-check-input" id="khuhoi" checked> <label
-							class="form-check-label fw-bold" for="khuhoi">Khứ Hồi</label>
+							class="form-check-label fw-bold" for="khuhoi"><s:message code="index.khuhoi"/></label>
 					</div>
 				</div>
 				<div class="row">

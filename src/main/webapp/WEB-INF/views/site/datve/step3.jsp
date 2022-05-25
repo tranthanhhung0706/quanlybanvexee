@@ -1,27 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/include/header.jsp" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <!--- Thanh Progresss --->
 
 <div class="container">
 
-	<h2 class="text-center mt-3">CHẤP NHẬN ĐIỀU KHOẢN</h2>
+	<h2 class="text-center mt-3"><s:message code="ve.chapnhandieukhoan"/></h2>
 
 
 	<div class="step-wizard">
 		<ul class="step-wizard-list">
 			<li class="step-wizard-item"><span class="progress-count">1</span>
-				<span class="progress-label">CHỌN TUYẾN</span></li>
+				<span class="progress-label"><s:message code="ve.chontuyen"/></span></li>
 			<li class="step-wizard-item"><span class="progress-count">2</span>
-				<span class="progress-label">XÁC NHẬN LỘ TRÌNH</span></li>
+				<span class="progress-label"><s:message code="ve.xacnhanlotrinh"/></span></li>
 			<li class="step-wizard-item current-item"><span
 				class="progress-count ">3</span> <c:if test="${tk_kh.hoTen !=null }">
-					<span class="progress-label"> CHẤP NHẬN ĐIỀU KHOẢN </span>
+					<span class="progress-label"> <s:message code="ve.chapnhandieukhoan"/> </span>
 				</c:if> <c:if test="${tk_nv.hoTen !=null }">
-					<span class="progress-label"> THÔNG TIN KHÁCH HÀNG </span>
+					<span class="progress-label"> <s:message code="ve.thongtinhangkhach"/> </span>
 				</c:if></li>
 			<li class="step-wizard-item "><span class="progress-count">4</span>
-				<span class="progress-label">THANH TOÁN</span></li>
+				<span class="progress-label"><s:message code="ve.thanhtoan"/></span></li>
 		</ul>
 
 	</div>
@@ -34,58 +35,57 @@
 	<c:if test="${param.daTonTai == true }">
 		<div class="card text-dark bg-warning mb-3 m-auto"
 			style="max-width: 33rem;">
-			<h5 class="card-header">Số điện thoại này đã từng đăng kí. Bạn
-				có muốn đổi thông tin cũ sang thông tin vừa nhập ?</h5>
+			<h5 class="card-header"><s:message code="ve.dienthoaidadk"/></h5>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-6">
-						<h6 class="text-center">Thông tin cũ</h6>
+						<h6 class="text-center"><s:message code="ve.thongtincu"/></h6>
 						<p>
-							Họ và tên: <strong>${tempUser.hoTen }</strong>
+							<s:message code="login.hoten"/>: <strong>${tempUser.hoTen }</strong>
 						</p>
 						<p>
-							Số điện thoại: <strong>${tempUser.phoneNumber }</strong>
+							<s:message code="login.sdt"/>: <strong>${tempUser.phoneNumber }</strong>
 						</p>
 						<p>
 							Email: <strong>${tempUser.email }</strong>
 						</p>
 						<p>
-							CMND: <strong>${tempUser.cmnd }</strong>
+							<s:message code="login.cmnd"/>: <strong>${tempUser.cmnd }</strong>
 						</p>
 						<p>
-							Địa chỉ nhà: <strong>${tempUser.diaChi }</strong>
+							<s:message code="login.diachi"/>: <strong>${tempUser.diaChi }</strong>
 						</p>
 					</div>
 					<div class="col-6 border-start border-3">
-						<h6 class="text-center">Thông tin mới</h6>
+						<h6 class="text-center"><s:message code="ve.thongtinmoi"/></h6>
 						<p>
-							Họ và tên: <strong>${newUser.hoTen }</strong>
+							<s:message code="login.hoten"/>: <strong>${newUser.hoTen }</strong>
 						</p>
 						<p>
-							Số điện thoại: <strong>${newUser.phoneNumber }</strong>
+							<s:message code="login.sdt"/>: <strong>${newUser.phoneNumber }</strong>
 						</p>
 						<p>
 							Email: <strong>${newUser.email }</strong>
 						</p>
 						<p>
-							CMND: <strong>${newUser.cmnd }</strong>
+							<s:message code="login.cmnd"/>: <strong>${newUser.cmnd }</strong>
 						</p>
 						<p>
-							Địa chỉ nhà: <strong>${newUser.diaChi }</strong>
+							<s:message code="login.diachi"/>: <strong>${newUser.diaChi }</strong>
 						</p>
 					</div>
 				</div>
 				<div class="d-flex justify-content-end">
 					<a href="${pageContext.request.contextPath }/veXe/datVe/step3" class="btn btn-danger m-2">Hủy</a>
 					<form:form
-						action="site/step4.htm"
+						action="${pageContext.request.contextPath }/veXe/datVe/step4"
 						method="POST">
 						<input type="hidden" name="doiThongTin" value="false">
 						<input type="hidden" name="phoneNumber" value="${tempUser.phoneNumber }">
 						<input type="submit" value="Giữ lại thông tin cũ" class="btn btn-secondary m-2">
 					</form:form>
 					<form:form
-						action="site/step4.htm"
+						action="${pageContext.request.contextPath }/veXe/datVe/step4"
 						method="POST">
 						<input type="hidden" name="doiThongTin" value="true">
 						<input type="hidden" name="phoneNumber" value="${tempUser.phoneNumber }">
@@ -98,9 +98,9 @@
 
 	<div class="row">
 		<!--  form nhập thông tin người dùng nếu đăng kí offline  -->
-		<c:if test="${tk_nv.hoTen !=null }">
+		<sec:authorize access="hasRole('EMPLOYEE')">
 			<div class="col-12 col-md-6">
-				<form action="site/step4.htm"
+				<form action="${pageContext.request.contextPath }/veXe/datVe/step4"
 					method="POST" id="form12" class="validateKhachHang" novalidate>
 					<input type="hidden" name="${_csrf.parameterName}"
 						value="${_csrf.token}" />
@@ -149,7 +149,7 @@
 				</form>
 			</div>
 
-		</c:if>
+		</sec:authorize>
 
 		<!--  Điều khoản -->
 		<div class="col-12 col-md-6 m-auto">
@@ -198,20 +198,20 @@
 		<div>
 			<div>
 				<!-- ///////////////////////////// test đường link qua bước 4 //////////////// -->
-				<c:if test="${tk_kh.hoTen !=null }">
-					<a href="site/step4.htm">
+				<sec:authorize access="hasRole('USER')">
+					<a href="${pageContext.request.contextPath }/veXe/datVe/step4">
 						<button type="submit" form="ten_form_can_submit"
 							class="btnTiepTuc btn btn-danger rounded-pill p-2">
 							Tiếp tục<i class="ms-3 pt-1 fas fa-chevron-right"></i>
 						</button>
 					</a>
-				</c:if>
-				<c:if test="${tk_nv.hoTen !=null }">
+				</sec:authorize>
+				<sec:authorize access="hasRole('EMPLOYEE')">
 					<button type="submit" form="form12"
 						class="btnTiepTuc btn btn-danger rounded-pill p-2">
 						Tiếp tục<i class="ms-3 pt-1 fas fa-chevron-right"></i>
 					</button>
-			   </c:if>
+				</sec:authorize>
 			</div>
 		</div>
 	</div>

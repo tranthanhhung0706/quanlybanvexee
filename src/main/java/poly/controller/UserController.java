@@ -47,17 +47,18 @@ public class UserController {
 	static Account accounttemp;
 	
     @RequestMapping(value = "in_for/{userId}.htm",params = "btnid")
-    public String infor(ModelMap model,@PathVariable("userId") Integer userId,@ModelAttribute("khach_hang") User khach_hang){
+    public String infor(ModelMap model,@PathVariable("userId") Integer userId){
     	User list=this.getuser(userId);
     	usertemp=this.getuser(userId);
     	model.addAttribute("khach_hangs",list);
     	model.addAttribute("khach_hang",list);
     	
+    	if (list.getHinhAnh() != null) {
     	String fullPath = list.getHinhAnh();
     	int index = fullPath.lastIndexOf("\\");
     	String fileName = fullPath.substring(index + 1);  	
     	model.addAttribute("photo_name", fileName);
-    
+    	}
     	System.out.println(list);
     	return "site/user/userInfo";
     
@@ -89,15 +90,23 @@ public class UserController {
     	
     	if(errors.hasErrors()) return "site/user/userInfo";
     	
+    	khach_hang.setPhoneNumber(usertemp.getPhoneNumber());
+		khach_hang.setDiaChi(usertemp.getDiaChi());
+		khach_hang.setIdTaiKhoan(usertemp.getIdTaiKhoan());
+		
+		try {
+			String photoPath=context.getRealPath(photo.getOriginalFilename() ) ;
+    		photo.transferTo(new File(photoPath));
+    		khach_hang.setHinhAnh(photoPath);
+		}catch (Exception e) {
+			User user2 =this.getuser(khach_hang.getUserId());
+    		khach_hang.setHinhAnh(user2.getHinhAnh());
+
+		}
+    	
     	try {
     		
-    		String photoPath=context.getRealPath(photo.getOriginalFilename() ) ;
-    		photo.transferTo(new File(photoPath));
-    		
-    		khach_hang.setHinhAnh(photoPath);
-    		khach_hang.setPhoneNumber(usertemp.getPhoneNumber());
-    		khach_hang.setDiaChi(usertemp.getDiaChi());
-    		khach_hang.setIdTaiKhoan(usertemp.getIdTaiKhoan());
+
 			Integer check=this.updatekh(khach_hang);
 			if(check==1) {
 				model.addAttribute("message","update thanh cong");
@@ -105,32 +114,25 @@ public class UserController {
 				model.addAttribute("message","update that bai");
 			}
 			
+			User user =this.getuser(khach_hang.getUserId());
+	    	
+	    	
+	    	String fullPath = user.getHinhAnh();
+	    	int index = fullPath.lastIndexOf("\\");
+	    	String fileName = fullPath.substring(index + 1);
+	    	
+	    	model.addAttribute("photo_name", fileName);    	
+	    	model.addAttribute("khach_hangs",this.getuser(khach_hang.getUserId()));
+	    	model.addAttribute("khach_hang",this.getuser(khach_hang.getUserId()));
+			
 		} catch (Exception e) {
 			// TODO: handle exception
+	    	model.addAttribute("khach_hangs",this.getuser(khach_hang.getUserId()));
+
 			return "site/user/userInfo";
 		}
     	
-    	User user =this.getuser(khach_hang.getUserId());
     	
-    	
-    	String fullPath = user.getHinhAnh();
-    	int index = fullPath.lastIndexOf("\\");
-    	String fileName = fullPath.substring(index + 1);
-    	
-    	model.addAttribute("photo_name", fileName);
-//    	try {
-//			photo.transferTo(new File(user.getHinhAnh()));
-//		} catch (IllegalStateException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    	model.addAttribute("photo_name", photo.getOriginalFilename());
-    	
-    	
-    	model.addAttribute("khach_hangs",this.getuser(khach_hang.getUserId()));
     	return "site/user/userInfo";
     }
     

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -33,6 +33,9 @@
 </head>
 
 <body>
+
+<a href="?language=en">en</a>
+<a href="?language=vi">vi</a>
 	<!-- ////////////////////////// Main Navbar-->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid px-xl-5">
@@ -51,22 +54,17 @@
 			<div class="collapse navbar-collapse" id="mainNavbar">
 				<ul class="navbar-nav w-100 justify-content-lg-between">
 					<li class="nav-item mx-2"><a
-						class="nav-link px-0 fw-bolder text-uppercase" href="site/index.htm">Trang
-							Chủ</a></li>
+						class="nav-link px-0 fw-bolder text-uppercase" href="site/index.htm"><s:message code="index.trangchu"/></a></li>
 					<li class="nav-item mx-3 "><a
-						class="nav-link  px-0 fw-bolder text-uppercase" href="#">Lịch
-							trình</a></li>
+						class="nav-link  px-0 fw-bolder text-uppercase" href="#"><s:message code="index.lichtrinh"/></a></li>
 					<li class="nav-item mx-3"><a
-						class="nav-link  px-0 fw-bolder text-uppercase" href="#">Tin
-							tức</a></li>
+						class="nav-link  px-0 fw-bolder text-uppercase" href="#"><s:message code="index.tintuc"/></a></li>
 
 					<li class="nav-item mx-3"><a
-						class="nav-link  px-0 fw-bolder text-uppercase" href="#">Liên
-							hệ</a></li>
+						class="nav-link  px-0 fw-bolder text-uppercase" href="#"><s:message code="index.lienhe"/></a></li>
 
 					<li class="nav-item mx-3 mr-5"><a
-						class="nav-link  px-0 fw-bolder text-uppercase" href="#">Về
-							chúng tôi</a></li>
+						class="nav-link  px-0 fw-bolder text-uppercase" href="#"><s:message code="index.vechungtoi"/></a></li>
 					<!-- //////////////// nút đăng nhập -->
 
 					<!-- Chưa đăng nhập thì hiện cái này -->
@@ -75,7 +73,7 @@
 					  <c:if test="${tai_khoans.username ==null }">
 					    <a href="site/sign_in.htm"
 							class="btn btn-warning d-inline-block mr-auto fw-bold"> <i
-							class="fas fa-user-circle"></i> Đăng nhập
+							class="fas fa-user-circle"></i> <s:message code="login.dangnhap"/>
 						</a>
 					  </c:if>
 					  
@@ -92,18 +90,18 @@
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item"
 									href="site/in_for/${tk_kh.userId}.htm?btnid"><i
-										class="fas fa-user"></i> Thông tin tài khoản</a></li>
+										class="fas fa-user"></i> <s:message code="header.thongtintk"/></a></li>
 								<li><a class="dropdown-item"
 									href="site/userbookedticket/${tk_kh.userId}.htm?btnid1"><i
-										class="fas fa-history d-inline-block"></i> Các vé đã đặt</a></li>
+										class="fas fa-history d-inline-block"></i> <s:message code="header.cacvedadat"/></a></li>
                                  <li><a class="dropdown-item"
 									href="site/changepassword/${tk_kh.userId}.htm?btnid2"><i
-										class="fas fa-history d-inline-block"></i>Doi mat khau</a></li>
+										class="fas fa-history d-inline-block"></i><s:message code="header.doimk"/></a></li>
 								<li><hr class="dropdown-divider"></li>
 
 									<li>
 										<button type="submit" class="dropdown-item" form="form2">
-											<i class="fas fa-sign-out-alt"><a href="site/redirect.htm">Đăng xuất</a></i>
+											<i class="fas fa-sign-out-alt"><a href="site/redirect.htm"><s:message code="header.dangxuat"/></a></i>
 										</button>
 									</li>
 							</ul></li>
@@ -117,18 +115,18 @@
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item"
 									href="site/in_for2/${tk_nv.idNhanVien}.htm?btnid2"><i
-										class="fas fa-user"></i> Thông tin tài khoản</a></li>
+										class="fas fa-user"></i> <s:message code="header.thongtintk"/></a></li>
 								<li><a class="dropdown-item"
 									href="site/thanh_toan/${tk_nv.idNhanVien}.htm?btnid3"><i
-										class="fas fa-history d-inline-block"></i> Thanh toán vé</a></li>
+										class="fas fa-history d-inline-block"></i> <s:message code="header.thanhtoanve"/></a></li>
 										
-								<li><a class="dropdown-item" href="site/nghiepvu.htm"><i class="fas fa-bus-alt"></i> Thêm chuyến xe</a></li>
+								<li><a class="dropdown-item" href="site/nghiepvu.htm"><i class="fas fa-bus-alt"></i> <s:message code="header.themchuyenxe"/></a></li>
 
 								<li><hr class="dropdown-divider"></li>
 
 								<li>
 										<button type="submit" class="dropdown-item" form="form2">
-											<i class="fas fa-sign-out-alt"><a href="site/redirect.htm">Đăng xuất</a></i>
+											<i class="fas fa-sign-out-alt"><a href="site/redirect.htm"><s:message code="header.dangxuat"/></a></i>
 										</button>
 									</li>
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/include/header.jsp" %>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 
 	<div class="container">
 		<h2 class="text-center mt-3">${tuyenXeCanTim.diaDiemDi.tenDiaDiem}
@@ -12,14 +12,13 @@
 		<div class="step-wizard">
 			<ul class="step-wizard-list">
 				<li class="step-wizard-item"><span class="progress-count">1</span>
-					<span class="progress-label">CHỌN TUYẾN</span></li>
+					<span class="progress-label"><s:message code="ve.chontuyen"/></span></li>
 				<li class="step-wizard-item current-item"><span
-					class="progress-count">2</span> <span class="progress-label">XÁC
-						NHẬN LỘ TRÌNH</span></li>
+					class="progress-count">2</span> <span class="progress-label"><s:message code="ve.xacnhanlotrinh"/></span></li>
 				<li class="step-wizard-item"><span class="progress-count">3</span>
-					<span class="progress-label">CHẤP NHẬN ĐIỀU KHOẢN</span></li>
+					<span class="progress-label"><s:message code="ve.chapnhandieukhoan"/></span></li>
 				<li class="step-wizard-item "><span class="progress-count">4</span>
-					<span class="progress-label">THANH TOÁN</span></li>
+					<span class="progress-label"><s:message code="ve.thanhtoan"/></span></li>
 			</ul>
 
 		</div>
@@ -32,24 +31,13 @@
 
 		<!--  Cài Foreach ở đây lập qua từng chuyến xe trong chuyenXeCanTim rồi -->
 		<c:forEach items="${chuyenXeCanTim }" var="chuyenXe">
-		   <c:if test="${tk_kh.userId !=null}">
 			<c:if test="${loaiVe.equals(\"khuhoi\") }">
-				<!--  <form action = "${pageContext.request.contextPath }/veXe/datVe/step2KhuHoi" method="POST" id="form${chuyenXe.maChuyen }">-->
-				<form action = "site/step2KhuHoi/${tk_kh.userId}.htm" method="POST" id="form${chuyenXe.maChuyen }">
+				<form action = "${pageContext.request.contextPath }/veXe/datVe/step2KhuHoi" method="POST" id="form${chuyenXe.maChuyen }">
 			</c:if>
 			<c:if test="${loaiVe.equals(\"motchieu\") }">
 				<form action = "site/step3/${tk_kh.userId}.htm" method="POST" id="form${chuyenXe.maChuyen }">
 			</c:if>
-			</c:if>
-			<c:if test="${tk_kh.userId ==null}">
-			    <c:if test="${loaiVe.equals(\"khuhoi\") }">
-				<!--  <form action = "${pageContext.request.contextPath }/veXe/datVe/step2KhuHoi" method="POST" id="form${chuyenXe.maChuyen }">-->
-				<form action = "site/step2KhuHoi.htm" method="POST" id="form${chuyenXe.maChuyen }">
-			</c:if>
-			<c:if test="${loaiVe.equals(\"motchieu\") }">
-				<form action = "site/step3.htm" method="POST" id="form${chuyenXe.maChuyen }">
-			</c:if>
-			</c:if>
+			
 				<input type="hidden" name="chuyenXe" value="${chuyenXe.maChuyen }">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<c:if test="${loaiVe != null }">
@@ -98,8 +86,7 @@
 								<div>
 									<a href="#collapse${chuyenXe.maChuyen }"
 										data-bs-toggle="collapse" id="btnChonGhe${chuyenXe.maChuyen }"
-										class="btn btn-outline-danger py-1 px-1 p-lg-2 btnChonGhe">Chọn
-										Ghế</a>
+										class="btn btn-outline-danger py-1 px-1 p-lg-2 btnChonGhe"><s:message code="ve.chonghe"/></a>
 								</div>
 							</div>
 
@@ -117,7 +104,7 @@
 									role="tab" aria-controls="nav-home" aria-selected="true">
 									<img class="img-fluid"
 										src="${pageContext.request.contextPath }/resources/img/stair-down.png"
-										alt=""> TẦNG DƯỚI
+										alt=""> <s:message code="ve.tangduoi"/>
 								</button>
 
 								<button class="nav-link col  p-1 px-0 fw-bold"
@@ -126,7 +113,7 @@
 									role="tab" aria-controls="nav-profile" aria-selected="false">
 									<img class="img-fluid"
 										src="${pageContext.request.contextPath }/resources/img/stair-up.png"
-										alt="">TẦNG TRÊN
+										alt=""><s:message code="ve.tangtren"/>
 								</button>
 
 							</div>
@@ -162,7 +149,7 @@
 											style="width: 20px; height: 20px;"></div>
 										<div style="height: 20px;"
 											class="d-flex align-items-center ms-1">
-											<span class="align-text-top">Trống</span>
+											<span class="align-text-top"><s:message code="ve.trong"/></span>
 										</div>
 
 									</div>
@@ -172,7 +159,7 @@
 											style="width: 20px; height: 20px;"></div>
 										<div style="height: 20px;"
 											class="d-flex align-items-center ms-1">
-											<span class="align-text-top">Đang chọn</span>
+											<span class="align-text-top"><s:message code="ve.dangchon"/></span>
 										</div>
 
 									</div>
@@ -182,7 +169,7 @@
 											style="width: 20px; height: 20px;"></div>
 										<div style="height: 20px;"
 											class="d-flex align-items-center ms-1">
-											<span class="align-text-top">Đã đặt</span>
+											<span class="align-text-top"><s:message code="ve.dadat"/></span>
 										</div>
 
 									</div>
@@ -218,7 +205,7 @@
 												style="width: 20px; height: 20px;"></div>
 											<div style="height: 20px;"
 												class="d-flex align-items-center ms-1">
-												<span class="align-text-top">Trống</span>
+												<span class="align-text-top"><s:message code="ve.trong"/></span>
 											</div>
 
 										</div>
@@ -228,7 +215,7 @@
 												style="width: 20px; height: 20px;"></div>
 											<div style="height: 20px;"
 												class="d-flex align-items-center ms-1">
-												<span class="align-text-top">Đang chọn</span>
+												<span class="align-text-top"><s:message code="ve.dangchon"/></span>
 											</div>
 
 										</div>
@@ -238,7 +225,7 @@
 												style="width: 20px; height: 20px;"></div>
 											<div style="height: 20px;"
 												class="d-flex align-items-center ms-1">
-												<span class="align-text-top">Đã đặt</span>
+												<span class="align-text-top"><s:message code="ve.dadat"/></span>
 											</div>
 										</div>
 									</div>
@@ -252,7 +239,7 @@
 											<span class="text-muted">0 vé:</span>
 										</p>
 										<p id="tongTiencardChuyenXeThu${chuyenXe.maChuyen }">
-											<span class="text-muted">Tổng tiền:</span>
+											<span class="text-muted"><s:message code="ve.tongtien"/>:</span>
 										</p>
 									</div>
 									<div>
@@ -262,7 +249,7 @@
 											
 												<button type="submit" form="form${chuyenXe.maChuyen }"
 													class="btn btn-danger rounded-pill" style="width: 150px;">
-													Tiếp tục<i class="ms-3 pt-1 fas fa-chevron-right"></i>
+													<s:message code="ve.tieptuc"/><i class="ms-3 pt-1 fas fa-chevron-right"></i>
 												</button>
 											
 

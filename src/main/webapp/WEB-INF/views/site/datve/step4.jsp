@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/views/include/header.jsp" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 	<!--- Thanh Progresss --->
 
 	<div class="container">
-		<h2 class="text-center mt-3">THANH TOÁN</h2>
+		<h2 class="text-center mt-3"><s:message code="ve.thanhtoan"/></h2>
 
 
 		<div class="step-wizard">
 			<ul class="step-wizard-list">
 				<li class="step-wizard-item"><span class="progress-count">1</span>
-					<span class="progress-label">CHỌN TUYẾN</span></li>
+					<span class="progress-label"><s:message code="ve.chontuyen"/></span></li>
 				<li class="step-wizard-item"><span class="progress-count">2</span>
-					<span class="progress-label">XÁC NHẬN LỘ TRÌNH</span></li>
+					<span class="progress-label"><s:message code="ve.xacnhanlotrinh"/></span></li>
 				<li class="step-wizard-item"><span class="progress-count ">3</span>
-					<span class="progress-label">CHẤP NHẬN ĐIỀU KHOẢN</span></li>
+					<span class="progress-label"><s:message code="ve.chapnhandieukhoan"/></span></li>
 				<li class="step-wizard-item current-item"><span
-					class="progress-count">4</span> <span class="progress-label">THANH
-						TOÁN</span></li>
+					class="progress-count">4</span> <span class="progress-label"><s:message code="ve.thanhtoan"/></span></li>
 			</ul>
 
 		</div>
@@ -30,24 +30,23 @@
 		<div class="card m-auto w-100 rounded-3 border"
 			style="max-width: 900px;">
 			<div class="card-header text-uppercase text-center bg-orange fw-bold">
-				Thông tin mua vé</div>
+				<s:message code="ve.thongtinmuave"/></div>
 			<!-- Thông tin hành khách -->
-			<h6 class="bg-light p-2 border border-1 m-0">Thông tin hành
-				khách</h6>
+			<h6 class="bg-light p-2 border border-1 m-0"><s:message code="ve.thongtinhangkhach"/></h6>
 			<div class="card-body">
 
 				<div class="row">
 					<div class="col-12 col-md-6 d-flex flex-column">
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted">Họ tên:</div>
+							<div class="col-4 col-md-5 text-muted"><s:message code="login.hoten"/>:</div>
 							<div class="col">${veXe.idKhachHang.hoTen }</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted">Số điện thoại:</div>
+							<div class="col-4 col-md-5 text-muted"><s:message code="login.sdt"/>:</div>
 							<div class="col">${veXe.idKhachHang.phoneNumber }</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted">Địa chỉ nhà:</div>
+							<div class="col-4 col-md-5 text-muted"><s:message code="login.diachi"/>:</div>
 							<div class="col">${veXe.idKhachHang.diaChi }</div>
 						</div>
 					</div>
@@ -57,7 +56,7 @@
 							<div class="col">${veXe.idKhachHang.email }</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted">CMND/CCCD:</div>
+							<div class="col-4 col-md-5 text-muted"><s:message code="login.cmnd"/>:</div>
 							<div class="col">${veXe.idKhachHang.cmnd }</div>
 						</div>
 					</div>
@@ -75,7 +74,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6 d-flex flex-column">
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted">Tuyến xe:</div>
+							<div class="col-4 col-md-5 text-muted"><s:message code="ve.tuyenxe"/>:</div>
 							<div class="col">
 								${veXe.idChuyenXe.maTuyen.diaDiemDi.tenDiaDiem } <i
 									class="fas fa-long-arrow-alt-right"></i>
@@ -83,7 +82,7 @@
 							</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted">Thời gian:</div>
+							<div class="col-4 col-md-5 text-muted"><s:message code="ve.thoigian"/>:</div>
 							<div class="col text-danger fw-bold">${veXe.idChuyenXe.gioChay }</div>
 						</div>
 						<div class="row my-2">
@@ -227,12 +226,12 @@
 	<div class="container">
 		<h6 class="text-center text-uppercase my-4 green-text fw-bold">Chọn
 			cách thanh toán</h6>
-		<c:if test="${tk_nv.hoTen !=null }">
-		<form action="site/veChuaThanhToan.htm" method="POST" id="phuongThucThanhToan">
-		</c:if>	
-		<c:if test="${tk_kh.hoTen !=null }">
-		<form action="site/userBookedTickets/${tk_kh.userId}.htm" method="POST" id="phuongThucThanhToan">
-		</c:if>
+		<sec:authorize access="hasRole('EMPLOYEE')">
+		<form action="${pageContext.request.contextPath }/nhanvien/veChuaThanhToan" method="POST" id="phuongThucThanhToan">
+		</sec:authorize>	
+		<sec:authorize access="hasRole('USER')">
+		<form action="${pageContext.request.contextPath }/user/userBookedTickets" method="POST" id="phuongThucThanhToan">
+		</sec:authorize>
 		
 		
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

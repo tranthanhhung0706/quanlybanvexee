@@ -1,28 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@include file="/WEB-INF/views/include/header.jsp" %>
 
 	<div class="container">
 		<div class="d-flex justify-content-between my-4">
-			<h3 class="orange-text">Lịch sử mua vé</h3>
+			<h3 class="orange-text"><s:message code="ve.lichsumuave"/></h3>
 			<a href="${pageContext.request.contextPath }/veXe/datVe/step1" class="btn bg-orange border rounded-pill px-3">Đặt vé</a>
 		</div>
 
 		<!-- Thanh tìm kiếm -->
 		<form class="row g-3" action="site/timkiem.htm" method="GET">
 			<div class="col-md-6 col-lg-3">
-				<label for="maVeInput" class="form-label">Mã vé</label> <input
+				<label for="maVeInput" class="form-label"><s:message code="ve.mave"/></label> <input
 					type="text" class="form-control" name="maVeInput" placeholder="Nhập mã vé" id="maVeInput">
 			</div>
 			<div class="col-md-6 col-lg-3">
-				<label for="dateInput" class="form-label">Thời gian</label> <input
+				<label for="dateInput" class="form-label"><s:message code="ve.thoigian"/></label> <input
 				 name="dateInput"	type="date" class="form-control" id="dateInput">
 			</div>
 			<div class="col-md-6 col-lg-3">
-				<label for="tuyenDuongInput" class="form-label">Tuyến đường</label> <select
+				<label for="tuyenDuongInput" class="form-label"><s:message code="ve.tuyenduong"/></label> <select
 					class="form-select" id="tuyenDuongInput" name="tuyenDuongInput" >
-					<option value="default" selected>Chọn tuyến đường</option>
+					<option value="default" selected><s:message code="ve.chontuyenduong"/></option>
 					<option value="1va2">TP.Hồ Chí Minh => Đà Lạt</option>
 					<option value="2va1">Đà Lạt => TP.Hồ Chí Minh</option>
 					<option value="3">Three</option>
@@ -30,13 +30,13 @@
 			</div>
 
 			<div class="col-md-6 col-lg-3">
-				<label for="trangThaiInput" class="form-label">Trạng thái</label>
+				<label for="trangThaiInput" class="form-label"><s:message code="ve.trangthai"/></label>
 					
 					<select
 					class="form-select" id="trangThaiInputInput" name="trangThaiInput" >
-					<option value="default" selected>Chọn trạng thái</option>
-					<option value="Chờ thanh toán">Chờ thanh toán</option>
-					<option value="Đã thanh toán">Đã thanh toán</option>
+					<option value="default" selected><s:message code="ve.chontrangthai"/></option>
+					<option value="Chờ thanh toán"><s:message code="ve.chothanhtoan"/></option>
+					<option value="Đã thanh toán"><s:message code="ve.dathanhtoan"/></option>
 					
 				</select>
 			</div>
@@ -54,15 +54,15 @@
 			class="table mt-5  table-striped m-auto shado-sm overflow-scroll border">
 			<thead>
 				<tr>
-					<th scope="col">Mã</th>
+					<th scope="col"><s:message code="ve.ma"/></th>
 					<th scope="col">SL</th>
-					<th scope="col">Tuyến đường</th>
-					<th scope="col">Ngày lập</th>
+					<th scope="col"><s:message code="ve.tuyenduong"/></th>
+					<th scope="col"><s:message code="ve.ngaylap"/></th>
 			
-					<th scope="col">Tổng tiền</th>
-					<th scope="col">Thanh toán</th>
-					<th scope="col">Trạng thái</th>
-					<th scope="col">Thao tác</th>
+					<th scope="col"><s:message code="ve.tongtien"/></th>
+					<th scope="col"><s:message code="ve.thanhtoan"/></th>
+					<th scope="col"><s:message code="ve.trangthai"/></th>
+					<th scope="col"><s:message code="ve.thaotac"/></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -88,7 +88,7 @@
 							<td class="text-danger fw-bold">${veXe.trangThai }</td>
 						</c:if>
 						<!--  <td><a class="btn btn-info" href="${pageContext.request.contextPath }/chiTietVe?veId=${veXe.idVe}">Chi tiết</a></td>-->
-						<td><a class="btn btn-info" href="site/chitiet/${veXe.idVe}.htm">Chi tiết</a></td>
+						<td><a class="btn btn-info" href="site/chitiet/${veXe.idVe}.htm"><s:message code="ve.chitiet"/></a></td>
 					</tr>
 				</c:forEach>
                   <c:forEach var="l" items="${listve}">
@@ -111,7 +111,7 @@
 						<c:if test="${l.trangThai.equals(\"Đã hủy\") }">
 							<td class="text-danger fw-bold">${l.trangThai }</td>
 						</c:if>
-						<td><a class="btn btn-info" href="site/chitiet/${l.idVe}.htm">Chi tiết</a></td>
+						<td><a class="btn btn-info" href="site/chitiet/${l.idVe}.htm"><s:message code="ve.chitiet"/></a></td>
                      </tr>
                   </c:forEach>
               <tr>
@@ -133,7 +133,7 @@
 						<c:if test="${listve1.trangThai.equals(\"Đã hủy\") }">
 							<td class="text-danger fw-bold">${listve1.trangThai }</td>
 						</c:if>
-						<td><a class="btn btn-info" href="site/chitiet/${veXe.idVe}.htm">Chi tiết</a></td>
+						<td><a class="btn btn-info" href="site/chitiet/${veXe.idVe}.htm"><s:message code="ve.chitiet"/></a></td>
 				</tr>
 			</tbody>
 		</table>

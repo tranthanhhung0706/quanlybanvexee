@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <!-- ///////////////////// Anh duoi nav-->
 <%@include file="/WEB-INF/views/include/header.jsp" %>
 
@@ -21,12 +21,12 @@
 					<div class="form-check d-inline-block ms-3">
 						<input type="radio" value="motchieu" name="loaive"
 							class="form-check-input" id="motchieu"> <label
-							class="form-check-label fw-bold" for="motchieu">Một Chiều</label>
+							class="form-check-label fw-bold" for="motchieu"><s:message code="index.motchieu"/></label>
 					</div>
 					<div class="form-check d-inline-block ms-3">
 						<input type="radio" value="khuhoi" name="loaive"
 							class="form-check-input" id="khuhoi" checked> <label
-							class="form-check-label fw-bold" for="khuhoi">Khứ Hồi</label>
+							class="form-check-label fw-bold" for="khuhoi"><s:message code="index.khuhoi"/></label>
 					</div>
 				</div>
 				<div class="row">
@@ -34,7 +34,7 @@
 						<div class="row text-center justify-content-center my-3">
 							<div class="form-group col-5 p-2 border rounded-3">
 								<h6 class="card-title text-muted text-center">
-									<label for="chonDiemDi" class="fw-bold">Điểm đi</label>
+									<label for="chonDiemDi" class="fw-bold"><s:message code="index.diemdi"/></label>
 								</h6>
 								<select name="chonDiemDi" id="chonDiemDi"
 									class="border-0 fw-bold w-100 text-center">
@@ -46,7 +46,7 @@
 							<div class="col-1"></div>
 							<div class="form-group col-5 p-2 border rounded-3">
 								<h6 class="card-title text-muted text-center">
-									<label for="chonDiemDen" class="fw-bold">Điểm đến</label>
+									<label for="chonDiemDen" class="fw-bold"><s:message code="index.diemden"/></label>
 								</h6>
 								<select name="chonDiemDen"
 									class="border-0 fw-bold w-100 text-center" id="chonDiemDen">
@@ -61,29 +61,29 @@
 						<div class="row text-center justify-content-center my-3">
 							<div class="col-5 form-group border rounded-3 p-2">
 								<h6 class="card-title text-muted text-center">
-									<label for="chonNgayDi" class="fw-bold">Ngày Đi</label>
+									<label for="chonNgayDi" class="fw-bold"><s:message code="index.ngaydi"/></label>
 								</h6>
 								<input type="date"
 									class="rounded-3 border-light expiredDate fw-bold w-100"
 									name="chonNgayDi" id="chonNgayDi" required>
-								<div class="invalid-feedback">Chọn ngày đi phù hợp</div>
+								<div class="invalid-feedback"><s:message code="index.chonngaydi"/></div>
 							</div>
 							<div class="col-1"></div>
 							<div class="col-5 form-group border rounded-3 p-2">
 								<h6 class="card-title text-muted text-center">
-									<label for="chonNgayVe" class="fw-bold">Ngày về</label>
+									<label for="chonNgayVe" class="fw-bold"><s:message code="index.ngayve"/></label>
 								</h6>
 								<input type="date"
 									class="rounded-3 border-light expiredDate fw-bold w-100"
 									name="chonNgayVe" id="chonNgayVe" required>
-								<div class="invalid-feedback">Chọn ngày về phù hợp</div>
+								<div class="invalid-feedback"><s:message code="index.chonngayve"/></div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<button type="submit" id="btnTimXe"
 					class="btn btn-primary position-absolute top-100 start-50 start-80 translate-middle-x  border rounded-3">
-					<i class="fas fa-search"></i> TÌM CHUYẾN XE
+					<i class="fas fa-search"></i> <s:message code="index.timchuyenxe"/>
 				</button>
 			</form:form>
 		</div>
@@ -114,7 +114,7 @@
 	</div>
 	<!--/////////////////////////// Tuyen Pho Bien -->
 	<div id="tuyenPhoBien" class="my-3">
-		<h5 class="orange-text fw-bold fs-5 text-center">TUYẾN PHỔ BIẾN</h5>
+		<h5 class="orange-text fw-bold fs-5 text-center"><s:message code="index.tuyenphobien"/></h5>
 		<ul class="row w-100 justify-content-center">
 			<div class="col-lg-5">
 				<a href="${pageContext.request.contextPath }/veXe/datVe/step1"
