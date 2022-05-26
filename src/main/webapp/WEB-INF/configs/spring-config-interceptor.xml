@@ -33,58 +33,26 @@
 			<mvc:mapping path="/site/themxe.htm"/>
 			<mvc:mapping path="/site/chuyen_xe_hoan_thanh.htm"/>
 			<mvc:mapping path="/site/danhdauxe.htm"/>
-			<mvc:mapping path="/site/themchuyenxe.htm"/>
-			<mvc:mapping path="/site/update2.htm"/>
+
 			<mvc:mapping path="/site/thanh_toan/**.htm"/>
 			<mvc:mapping path="/site/timkiem2.htm"/>
 			<mvc:mapping path="/site/loaixel.htm"/>
-			<mvc:mapping path="/site/bienxel.htm"/>
-			<mvc:mapping path="/site/tuyenxel.htm"/>
 
 
 			<mvc:exclude-mapping path="/site/index.htm"/>
-			<mvc:exclude-mapping path="/site/login.htm"/>
-			<mvc:exclude-mapping path="/site/login1.htm"/>
-			<mvc:exclude-mapping path="/site/register.htm"/>
-			<mvc:exclude-mapping path="/site/datve/**"/>
-			<mvc:exclude-mapping path="/site/index.htm"/>
-			<mvc:exclude-mapping path="/site/sign_in.htm"/>
-			<mvc:exclude-mapping path="/site/forgotPassword.htm"/>
-			<mvc:exclude-mapping path="/site/register.htm"/>
-			<mvc:exclude-mapping path="/site/sign_up.htm"/>
-			<mvc:exclude-mapping path="/site/redirect.htm"/>
+
 			<bean class="ptithcm.interceptor.NhanvienInterceptor" />
 		</mvc:interceptor>
 		
 		<mvc:interceptor>
 	
-			<mvc:mapping path="/site/user/**"/>
 			<mvc:mapping path="/site/timkiem.htm"/>
-			<mvc:mapping path="/site/update.htm"/>
-			<mvc:mapping path="/site/changepassword.htm"/>
-			<mvc:mapping path="/site/changepassword/**"/>
-			<mvc:mapping path="/site/userbookedticket/**"/>
 			<mvc:mapping path="/site/datve/**"/>
-			<mvc:mapping path="/site/sign_in.htm"/>
-			<mvc:mapping path="/site/forgotPassword.htm"/>
-			<mvc:mapping path="/site/register.htm"/>
-			<mvc:mapping path="/site/sign_up.htm"/>
-			<mvc:mapping path="/site/redirect.htm"/>
-			<mvc:mapping path="/site/chitiet/**"/>
-			<mvc:mapping path="/site/huyve/**"/>
-			<mvc:mapping path="/site/in_for/**"/>
+			<mvc:mapping path="/site/showlistve/**"/>
+			
 			
 			<mvc:exclude-mapping path="/site/index.htm"/>
-			<mvc:exclude-mapping path="/site/login.htm"/>
-			<mvc:exclude-mapping path="/site/login1.htm"/>
-			<mvc:exclude-mapping path="/site/register.htm"/>
-			<mvc:exclude-mapping path="/site/datve/**"/>
-			<mvc:exclude-mapping path="/site/index.htm"/>
 			<mvc:exclude-mapping path="/site/sign_in.htm"/>
-			<mvc:exclude-mapping path="/site/forgotPassword.htm"/>
-			<mvc:exclude-mapping path="/site/register.htm"/>
-			<mvc:exclude-mapping path="/site/sign_up.htm"/>
-			<mvc:exclude-mapping path="/site/redirect.htm"/>
 			<bean class="ptithcm.interceptor.KhachhangInterceptor" />
 		</mvc:interceptor>
 		<!--  

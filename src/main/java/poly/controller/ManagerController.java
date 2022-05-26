@@ -2,6 +2,8 @@ package poly.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import net.sf.ehcache.hibernate.HibernateUtil;
 import ptithcm.Entity.Account;
 import ptithcm.Entity.Chuyen_Xe;
 import ptithcm.Entity.Dia_Diem;
@@ -26,12 +29,31 @@ import ptithcm.Entity.Tuyen_Xe;
 import ptithcm.Entity.Ve_Xe;
 
 @Controller
-@RequestMapping("/quanly")
+@RequestMapping("/quanly/")
 @Transactional
 public class ManagerController {
 	@Autowired
 	SessionFactory sessionFactory;
-	
+	 @RequestMapping("logout")
+	 	public String logout(HttpSession ss) {
+	 	
+	 		ss.removeAttribute("tk_ad");
+	 		ss.removeAttribute("tai_khoans");
+	 		return "redirect:site/index.htm";
+	 	}
+	 @RequestMapping("site/index")
+     public String index(ModelMap model,HttpSession session) {
+    	 List<Dia_Diem> list=this.getdiadiem();
+    	 session.setAttribute("tatCaDiaDiem", list);
+    	 return "site/index";
+     }
+	   public List<Dia_Diem> getdiadiem(){
+	    	 Session session=sessionFactory.getCurrentSession();
+	    	 String hql="from Dia_Diem ";
+	    	 Query query=session.createQuery(hql);
+	    	 List<Dia_Diem> list=query.list();
+	    	 return list;
+	     }
     @RequestMapping("/.htm")
     public String managerIndex(ModelMap model, @RequestParam(value = "isShowList", required = false) boolean isShowList,
             @RequestParam(value  = "isThemNV", required = false) boolean isThemNV,
@@ -408,11 +430,12 @@ public class ManagerController {
     
     public void delete(Dia_Diem diaDiem) {
         // TODO Auto-generated method stub
+    	
     	Session currentSession = sessionFactory.openSession();
         Transaction t=currentSession.beginTransaction();
         currentSession.delete(diaDiem);
         t.commit();
-        currentSession.close();
+       currentSession.close();
     }
 
     @RequestMapping(value = "xuLyDiaDiem", params = "updateDiaDiemBtn", method = RequestMethod.POST)

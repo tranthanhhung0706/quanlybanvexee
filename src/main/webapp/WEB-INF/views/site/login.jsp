@@ -47,8 +47,9 @@
 		<div class="d-flex justify-content-end">
 			<a class="btn btn-success me-2" href="site/register.htm"><s:message code="login.dangki"/></a>
 			<button type="submit" class="btn btn-primary"><s:message code="login.dangnhap"/></button>
+			
 		</div>
-
+<div style="color: green;">${message }</div>
 		
 
 	</form:form>

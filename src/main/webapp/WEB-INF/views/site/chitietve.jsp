@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
+
 <%@include file="/WEB-INF/views/include/header.jsp" %>
 
 	<!-------------------- body ------------------------->
@@ -13,7 +13,7 @@
 					src="${pageContext.request.contextPath }/resources/img/unpaidTicket.png"
 					alt="">
 			</div>
-			<h5 class="text-center mt-1 mb-4 orange-text"><s:message code="ve.vechuatt"/></h5>
+			<h5 class="text-center mt-1 mb-4 orange-text">Vé chưa thanh toán</h5>
 		</c:if>
 
 		<c:if test="${veXe.trangThai.equals(\"Đã thanh toán\") }">
@@ -22,7 +22,7 @@
 					src="${pageContext.request.contextPath }/resources/img/successfulTicket.png"
 					alt="">
 			</div>
-			<h5 class="text-center mt-1 mb-4 text-success"><s:message code="ve.vedat"/></h5>
+			<h5 class="text-center mt-1 mb-4 text-success">Vé đã thanh toán</h5>
 		</c:if>
 
 		<c:if test="${veXe.trangThai.equals(\"Đã hủy\") }">
@@ -31,7 +31,7 @@
 					src="${pageContext.request.contextPath }/resources/img/unpaidTicket.png"
 					alt="">
 			</div>
-			<h5 class="text-center mt-1 mb-4 text-danger"><s:message code="ve.vedabihuy"/></h5>
+			<h5 class="text-center mt-1 mb-4 text-danger">Vé đã bị hủy</h5>
 		</c:if>
 
 
@@ -41,21 +41,22 @@
 			<div class="card-header text-uppercase text-center bg-orange fw-bold">
 				Thông tin mua vé</div>
 			<!-- Thông tin hành khách -->
-			<h6 class="bg-light p-2 border border-1 m-0"><s:message code="ve.tthanhkhach"/></h6>
+			<h6 class="bg-light p-2 border border-1 m-0">Thông tin hành
+				khách</h6>
 			<div class="card-body">
 
 				<div class="row">
 					<div class="col-12 col-md-6 d-flex flex-column">
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted"><s:message code="login.hoten"/>:</div>
+							<div class="col-4 col-md-5 text-muted">Họ tên:</div>
 							<div class="col">${veXe.idKhachHang.hoTen }</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted"><s:message code="login.sdt.title"/>:</div>
+							<div class="col-4 col-md-5 text-muted">Số điện thoại:</div>
 							<div class="col">${veXe.idKhachHang.phoneNumber }</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted"><s:message code="login.diachi"/>:</div>
+							<div class="col-4 col-md-5 text-muted">Địa chỉ nhà:</div>
 							<div class="col">${veXe.idKhachHang.diaChi }</div>
 						</div>
 					</div>
@@ -65,7 +66,7 @@
 							<div class="col">${veXe.idKhachHang.email }</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted"><s:message code="login.cmnd"/>:</div>
+							<div class="col-4 col-md-5 text-muted">CMND/CCCD:</div>
 							<div class="col">${veXe.idKhachHang.cmnd }</div>
 						</div>
 					</div>
@@ -83,7 +84,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6 d-flex flex-column">
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted"><s:message code="ve.tuyenxe"/>:</div>
+							<div class="col-4 col-md-5 text-muted">Tuyến xe:</div>
 							<div class="col">
 								${veXe.idChuyenXe.maTuyen.diaDiemDi.tenDiaDiem } <i
 									class="fas fa-long-arrow-alt-right"></i>
@@ -91,21 +92,21 @@
 							</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted"><s:message code="ve.thoigian"/>:</div>
+							<div class="col-4 col-md-5 text-muted">Thời gian:</div>
 							<div class="col text-danger fw-bold">${veXe.idChuyenXe.gioChay }</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted"><s:message code="ve.diemlenxe"/>:</div>
+							<div class="col-4 col-md-5 text-muted">Điểm lên xe:</div>
 							<div class="col">${veXe.idChuyenXe.maTuyen.diaDiemLenXe }</div>
 						</div>
 					</div>
 					<div class="col-12 col-md-6 d-flex flex-column">
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted"><s:message code="ve.soluongghe"/>:</div>
+							<div class="col-4 col-md-5 text-muted">Số lượng ghế:</div>
 							<div class="col">${veXe.gheList.size() }</div>
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-muted"><s:message code="ve.soghe"/>:</div>
+							<div class="col-4 col-md-5 text-muted">Số ghế:</div>
 							<div class="col text-danger fw-bold">
 								<c:forEach items="${veXe.gheList }" var="ghe">
 							 	${ghe.maGhe }
@@ -115,7 +116,8 @@
 
 						</div>
 						<div class="row my-2">
-							<div class="col-4 col-md-5 text-danger fw-bold"><s:message code="ve.cachthanhtoan"/>:</div>
+							<div class="col-4 col-md-5 text-danger fw-bold">Cách thanh
+								toán:</div>
 							<div class="col text-danger fw-bold">${veXe.hinhThucThanhToan }</div>
 						</div>
 					</div>
@@ -134,7 +136,7 @@
 				</c:if>
 
 
-				<h5 class="text-uppercase text-end"><s:message code="ve.tongtien"/></h5>
+				<h5 class="text-uppercase text-end">Tổng Tiền</h5>
 				<p class="m-0 text-uppercase text-end orange-text fs-3 fw-bold">
 					${veXe.tongTien } <sup
 						class="text-decoration-underline text-lowercase">đ</sup>
@@ -146,7 +148,8 @@
 
 			<c:if test="${tk_kh.hoTen !=null }">
 				<a class="btn btn-warning  border rounded-pill px-4 me-2"
-					href="site/userbookedticket/${tk_kh.userId}.htm?btnid1"><s:message code="ve.quaylai"/></a>
+					href="site/userbookedticket/${tk_kh.userId}.htm?btnid1">Quay
+					lại</a>
 				<c:if test="${!veXe.trangThai.equals(\"Đã hủy\") && !veXe.trangThai.equals('Đã thanh toán') }">
 					<form:form action="site/huyve/${tk_kh.userId}.htm"
 						method="POST">
@@ -159,26 +162,22 @@
 			</c:if>
 			<c:if test="${tk_nv.hoTen !=null }">
 				<a class="btn btn-warning  border rounded-pill px-4 me-2"
-					href="${pageContext.request.contextPath }/nhanvien/veChuaThanhToan">Quay
+					href="site/thanh_toan/${tk_nv.idNhanVien}.htm?btnid3">Quay
 					lại</a>
 				<c:if test="${!veXe.trangThai.equals(\"Đã hủy\") }">
 
 					<form:form
-						action="${pageContext.request.contextPath }/nhanvien/huyVe"
+						action="site/huyVe/${tk_nv.idNhanVien}.htm"
 						method="POST">
 						<input type="hidden" name="idVe" value="${veXe.idVe }">
-						<input type="hidden" name="idNhanVien"
-							value="${nhanVien.idNhanVien }" />
 						<input type="submit" value="Hủy vé"
 							class="btn btn-danger border rounded-pill px-4 me-2" />
 					</form:form>
 					
 					<form:form
-					action="${pageContext.request.contextPath }/nhanvien/thanhtoanve"
+					action="site/thanh_toan_ve/${tk_nv.idNhanVien}.htm"
 					method="POST">
 					<input type="hidden" name="idVe" value="${ veXe.idVe}">
-					<input type="hidden" name="idNhanVien"
-						value="${nhanVien.idNhanVien }" />
 					<input type="submit" value="Thanh toán"
 						class="btn btn-success border rounded-pill px-4 me-2" />
 				</form:form>

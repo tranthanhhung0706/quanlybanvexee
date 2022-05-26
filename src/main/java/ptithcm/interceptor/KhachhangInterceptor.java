@@ -16,7 +16,6 @@ public class KhachhangInterceptor extends HandlerInterceptorAdapter{
 		// TODO Auto-generated method stub
 		HttpSession ss = request.getSession();
 		if (ss.getAttribute("tk_kh") == null ) {
-			
 			response.sendRedirect(request.getContextPath() + "/site/index.htm");
 			return false;
 		}

@@ -555,7 +555,7 @@ public class Ve_XeController {
 			DateTimeFormatter formatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String formatedDate = dateObj.format(formatObj);
 			veXe.setNgayLap(formatedDate);
-			veXe.setTrangThai("Chá»� thanh toÃ¡n");
+			veXe.setTrangThai("Chờ thanh toán");
 //			veXeService.luuVe(veXe);
 			Integer check=this.saveve(veXe);
 			if(check==1) {
@@ -579,8 +579,8 @@ public class Ve_XeController {
 			String formatedDate = dateObj.format(formatObj);
 			veXeThu1.setNgayLap(formatedDate);
 			veXeThu2.setNgayLap(formatedDate);
-			veXeThu1.setTrangThai("Chá»� thanh toÃ¡n");
-			veXeThu2.setTrangThai("Chá»� thanh toÃ¡n");
+			veXeThu1.setTrangThai("Chờ thanh toán");
+			veXeThu2.setTrangThai("Chờ thanh toán");
 //			veXeService.luuVe(veXeThu1);
 //			veXeService.luuVe(veXeThu2);
 			Integer check1=this.saveve(veXeThu1);

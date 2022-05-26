@@ -13,6 +13,9 @@
 			<div class="col-12 col-md-8 col-xl-6">
 				<div class="card m-auto " style="max-width: 700px;">
 					<div class="card-header text-muted">THÔNG TIN CÁ NHÂN</div>
+					<div class="alert alert-success" role="alert">
+					  ${message }
+					</div>
 					<div class="card-body">
 <%-- 					${photo_name } --%>
 							
@@ -120,10 +123,9 @@
 						<div class="card-header text-muted">THÔNG TIN CÁ NHÂN</div>
 						<div class="card-body">
                               <div class="row mb-3">
-								<label for="inputName" class="col-sm-3 col-form-label">Họ
-									và tên:</label>
+								<label for="inputName" class="col-sm-3 col-form-label">Mã khách hàng:</label>
 								<div class="col-sm-9">
-									<form:input path="userId" cssClass="form-control" id="inputName"
+									<form:input path="userId" cssClass="form-control" id="inputName" 
 										 />
 
 								</div>

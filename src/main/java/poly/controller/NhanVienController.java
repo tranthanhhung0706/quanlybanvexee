@@ -1,5 +1,6 @@
 package poly.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ptithcm.Entity.Chuyen_Xe;
+import ptithcm.Entity.Ghe;
 import ptithcm.Entity.Loai_Xe;
 import ptithcm.Entity.Nhan_Vien;
 import ptithcm.Entity.Tuyen_Xe;
@@ -54,6 +56,49 @@ public class NhanVienController {
    }
    @RequestMapping(value = "themxe",method = RequestMethod.POST)
    public String themxemoi(ModelMap model,@ModelAttribute("xe") Xe xe) {
+	   Loai_Xe loaiXe =this.getLoaiXeFromId(xe.getMaLoaiXe().getIdLoaiXe());
+	   List<Ghe> gheList = new ArrayList<Ghe>();
+		//Thêm ghế vào xe
+		String gheA = "A";
+		String gheB = "B";
+		for (int i = 1; i <= 12; i++) {
+			if (i < 10) {
+					gheA = gheA.concat("0" + Integer.toString(i));
+					gheB = gheB.concat("0" + Integer.toString(i));
+					Ghe tempGheA = new Ghe(gheA);
+					Ghe tempGheB = new Ghe(gheB);
+					gheList.add(tempGheA);
+					gheList.add(tempGheB);
+					gheA = "A";
+					gheB = "B";
+			} else {
+					gheA = gheA.concat(Integer.toString(i));
+					gheB = gheB.concat(Integer.toString(i));
+					Ghe tempGheA = new Ghe(gheA);
+					Ghe tempGheB = new Ghe(gheB);
+					gheList.add(tempGheA);
+					gheList.add(tempGheB);
+					gheA = "A";
+					gheB = "B";
+			}
+		}
+		if (xe.getMaLoaiXe().getIdLoaiXe() == 2) {// Ghế ngồi thì thêm mỗi tầng 6 ghế nữa
+			gheA = "A";
+			gheB = "B";
+			for (int i = 13; i <= 18; i++) {
+				
+				gheA = gheA.concat(Integer.toString(i));
+				gheB = gheB.concat(Integer.toString(i));
+				Ghe tempGheA = new Ghe(gheA);
+				Ghe tempGheB = new Ghe(gheB);
+				gheList.add(tempGheA);
+				gheList.add(tempGheB);
+				gheA = "A";
+				gheB = "B";
+			}
+		}
+		xe.setMaLoaiXe(loaiXe);
+		xe.setGheList(gheList);
 	   Integer check=this.savexe(xe);
 	   if(check==1) {
 		   model.addAttribute("message","them  xe thanh cong");
@@ -117,6 +162,14 @@ public class NhanVienController {
 	   query.setParameter("id_ddi", id_ddi);
 	   query.setParameter("id_dden", id_dden);
 	   Tuyen_Xe list=(Tuyen_Xe) query.list().get(0);
+	   return list;
+   }
+   public Loai_Xe getLoaiXeFromId(Integer idLoaiXe ) {
+	   Session session=factory.getCurrentSession();
+	   String hql="from Loai_Xe where idLoaiXe =:idloaixe";
+	   Query query=session.createQuery(hql);
+	   query.setParameter("idloaixe", idLoaiXe);
+	   Loai_Xe list=(Loai_Xe)query.list().get(0);
 	   return list;
    }
    public Integer savethemchuyenxe(Chuyen_Xe chuyenxe) {
@@ -206,13 +259,22 @@ public class NhanVienController {
 	   model.addAttribute("trang_thai_ve",list);
 	   return "site/nhanvien/veChuaThanhToanList";
    }
-   @RequestMapping("timkiem2")
+   @RequestMapping(value="timkiem2",params = "tim")
    public String timkiem(ModelMap model,@RequestParam("maVeInput") Integer mave,HttpServletRequest request) {
 	   Ve_Xe list1=this.getve1(mave);
 	   model.addAttribute("listve1",list1);
 	   System.out.println(request.getParameter("tuyenDuongInput"));
 	   return "site/nhanvien/veChuaThanhToanList";
    }
+   
+   @RequestMapping(value="timkiem2",params = "lammoi")
+   public String timkiem(ModelMap model) {
+	   List<Ve_Xe> list=this.getves();
+	   System.out.println(list);
+	   model.addAttribute("trang_thai_ve",list);
+	   return "site/nhanvien/veChuaThanhToanList";
+   }
+   
    @ModelAttribute("loaixesel")
    public List<Loai_Xe> getloaixe(){
 	   Session session=factory.getCurrentSession();
@@ -245,6 +307,9 @@ public class NhanVienController {
 	   Ve_Xe list=(Ve_Xe) query.list().get(0);
 	   return list;
    }
+   
+  
+   
    public List<Ve_Xe> getves(){
 	   Session session=factory.getCurrentSession();
 	   String hql="from Ve_Xe where trangThai =:trang_thai1 or trangThai =:trang_thai2";

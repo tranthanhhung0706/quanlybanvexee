@@ -52,7 +52,7 @@
 				</li>
 			</ul>
 			<form:form id="form2"
-				action="${pageContext.request.contextPath }/logout" method="POST"
+				action="${pageContext.request.contextPath }/quanly/logout.htm" method="POST"
 			>
 				<button type="submit" class="dropdown-item" form="form2">
 					<i class="fas fa-sign-out-alt"></i>

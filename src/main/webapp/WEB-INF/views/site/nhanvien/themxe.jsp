@@ -7,7 +7,7 @@
 
 	
 		<div class="my-3" id="themXeMoiDiv">
-		<c:if test="${param.themXeMoi && param.thanhCong.equals('true') }">
+		<!-- <c:if test="${param.themXeMoi && param.thanhCong.equals('true') }">
 			<div class="alert alert-success my-3" role="alert">
   			<h5>Đã thêm xe mới thành công!</h5>
 			</div>
@@ -17,7 +17,7 @@
 			<div class="alert alert-danger my-3" role="alert">
   			<h5>Biển số xe đã tồn tại !</h5>
 			</div>
-		</c:if>
+		</c:if>-->
 		<form:form
 			action="site/themxe.htm"
 			method="POST" modelAttribute="xe">

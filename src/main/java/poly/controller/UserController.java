@@ -116,8 +116,8 @@ public class UserController {
     	
     	try {
     		
-    		User user2 =this.getuser(khach_hang.getUserId());
-    		if(photo.getOriginalFilename().equals(""))  khach_hang.setHinhAnh(user2.getHinhAnh());
+    		//User user2 =this.getuser(khach_hang.getUserId());
+    		if(photo.getOriginalFilename().equals(""))  khach_hang.setHinhAnh(usertemp.getHinhAnh());
     		else
     		{
     			String photoPath=context.getRealPath(photo.getOriginalFilename()) ;
@@ -129,9 +129,9 @@ public class UserController {
 
 			Integer check=this.updatekh(khach_hang);
 			if(check==1) {
-				model.addAttribute("message","update thanh cong");
+				model.addAttribute("message","cập nhật thành công");
 			}else {
-				model.addAttribute("message","update that bai");
+				model.addAttribute("message","cập nhật thất bại");
 			}
 //			
 			User user =this.getuser(khach_hang.getUserId());
