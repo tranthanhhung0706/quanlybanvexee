@@ -189,12 +189,9 @@ public class UserController {
     }
     @RequestMapping(value = "changepassword")
     public String changepassword(ModelMap model,@ModelAttribute("tai_khoan") Account tai_khoan) {
-    
     	//,@RequestParam("passwordOld") String passwordOld
     	//Account tk = this.gettk(String.valueOf(accounttemp.getAccountId()), passwordOld);
     	//if(tk==null) System.out.print("kiem tradddddddddd");
-    	
-    	
     	tai_khoan.setAccountId(accounttemp.getAccountId());
     	tai_khoan.setAccountState(accounttemp.getAccountState());
     	tai_khoan.setIdRole(accounttemp.getIdRole());

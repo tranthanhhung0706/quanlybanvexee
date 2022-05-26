@@ -335,6 +335,7 @@ public class ManagerController {
         // TODO Auto-generated method stub
         Session currentSession = sessionFactory.getCurrentSession();
         return (Tuyen_Xe) currentSession.get(Tuyen_Xe.class, idTuyenXe);
+        
 
     }
 
@@ -408,13 +409,8 @@ public class ManagerController {
     public String deleteDiaDiem(@RequestParam("idDiaDiem") int idDiaDiem, ModelMap model) {
 
         // -Nếu địa điểm đó chưa gắn trong tuyến xe nào
-        Dia_Diem diaDiem = this.getDiaDiem(idDiaDiem);
 
-        if (!diaDiem.getTuyenXeDiList().isEmpty() || !diaDiem.getTuyenXeDenList().isEmpty()) {
-            model.addAttribute("diaDiemTonTaiTuyen", true);
-            return "redirect:/quanly/.htm?isQuanLyDiaDiem=true";
-        }
-        this.delete(diaDiem);
+        this.delete(idDiaDiem);
         model.addAttribute("xoaDiaDiem", true);
         return "redirect:/quanly/.htm?isQuanLyDiaDiem=true";
     }
@@ -428,12 +424,13 @@ public class ManagerController {
         return temp;
     }
     
-    public void delete(Dia_Diem diaDiem) {
+    public void delete(int idDiaDiem) {
         // TODO Auto-generated method stub
     	
     	Session currentSession = sessionFactory.openSession();
         Transaction t=currentSession.beginTransaction();
-        currentSession.delete(diaDiem);
+        Dia_Diem temp = (Dia_Diem) currentSession.get(Dia_Diem.class, idDiaDiem);
+        currentSession.delete(temp);
         t.commit();
        currentSession.close();
     }
